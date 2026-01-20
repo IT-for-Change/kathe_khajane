@@ -1,0 +1,76 @@
+[
+ {
+  "charts": [],
+  "content": "[{\"id\":\"g_4JFujLkB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Kathe Khajane</span>\",\"col\":12}},{\"id\":\"YHrsqnXqbO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Story\",\"col\":3}},{\"id\":\"syhN9YH7zJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"KK dashboard\",\"col\":3}}]",
+  "custom_blocks": [],
+  "docstatus": 0,
+  "doctype": "Workspace",
+  "for_user": "",
+  "hide_custom": 0,
+  "icon": "color-review-points",
+  "indicator_color": "",
+  "is_hidden": 0,
+  "label": "Kathe Khajane Stories",
+  "links": [],
+  "modified": "2026-01-20 12:44:23.899949",
+  "module": null,
+  "name": "Kathe Khajane Stories",
+  "number_cards": [],
+  "parent_page": "",
+  "public": 1,
+  "quick_lists": [],
+  "restrict_to_domain": null,
+  "roles": [
+   {
+    "parent": "Kathe Khajane Stories",
+    "parentfield": "roles",
+    "parenttype": "Workspace",
+    "role": "Edu user"
+   },
+   {
+    "parent": "Kathe Khajane Stories",
+    "parentfield": "roles",
+    "parenttype": "Workspace",
+    "role": "Tech user"
+   }
+  ],
+  "sequence_id": 6.0,
+  "shortcuts": [
+   {
+    "color": "Grey",
+    "doc_view": "List",
+    "format": null,
+    "icon": null,
+    "kanban_board": null,
+    "label": "KK dashboard",
+    "link_to": "Kathe Khajane",
+    "parent": "Kathe Khajane Stories",
+    "parentfield": "shortcuts",
+    "parenttype": "Workspace",
+    "report_ref_doctype": null,
+    "restrict_to_domain": null,
+    "stats_filter": null,
+    "type": "Dashboard",
+    "url": null
+   },
+   {
+    "color": "Blue",
+    "doc_view": "List",
+    "format": null,
+    "icon": null,
+    "kanban_board": null,
+    "label": "Story",
+    "link_to": "Story",
+    "parent": "Kathe Khajane Stories",
+    "parentfield": "shortcuts",
+    "parenttype": "Workspace",
+    "report_ref_doctype": null,
+    "restrict_to_domain": null,
+    "stats_filter": "[]",
+    "type": "DocType",
+    "url": null
+   }
+  ],
+  "title": "Kathe Khajane Stories"
+ }
+]

@@ -5,6 +5,35 @@ app_description = "kk stories"
 app_email = "kk@gmail.com"
 app_license = "mit"
 
+fixtures = [
+    {
+        "dt": "Workspace",
+        "filters": [
+            ["name", "=", "Kathe Khajane Stories"]
+        ]
+    },
+
+    {
+        "dt": "Dashboard",
+        "filters": [
+            ["name", "=", "Kathe Khajane"]
+        ]
+    },
+     
+    {
+        "dt": "Dashboard Chart",
+        "filters": [
+            ["name", "in", [
+                "Number of stories",
+                "Number of stories by duration"
+            ]]
+        ]
+    }
+
+
+]
+
+
 # Apps
 # ------------------
 

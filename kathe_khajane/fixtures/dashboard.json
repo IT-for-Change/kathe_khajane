@@ -1,0 +1,58 @@
+[
+ {
+  "cards": [],
+  "chart_options": null,
+  "charts": [
+   {
+    "chart": null,
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Half"
+   },
+   {
+    "chart": "Number of stories",
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Half"
+   },
+   {
+    "chart": "Number of stories by duration",
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Half"
+   },
+   {
+    "chart": "Number of English stories by theme",
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Full"
+   },
+   {
+    "chart": "Number of Kannada stories by theme",
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Full"
+   },
+   {
+    "chart": "Number of English stories by class",
+    "parent": "Kathe Khajane",
+    "parentfield": "charts",
+    "parenttype": "Dashboard",
+    "width": "Full"
+   }
+  ],
+  "dashboard_name": "Kathe Khajane",
+  "docstatus": 0,
+  "doctype": "Dashboard",
+  "is_default": 0,
+  "is_standard": 0,
+  "modified": "2026-01-20 13:11:13.291348",
+  "module": null,
+  "name": "Kathe Khajane"
+ }
+]
