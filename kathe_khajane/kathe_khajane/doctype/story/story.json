@@ -1,0 +1,289 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:story-{###}",
+ "creation": "2026-01-07 11:19:52.892962",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information_tab",
+  "title",
+  "language",
+  "source",
+  "creator",
+  "recording_tab",
+  "is_it_by_community",
+  "collaborators",
+  "duration",
+  "academic_year",
+  "narrator",
+  "editor",
+  "story_audio",
+  "raw_recording",
+  "for_teachers_tab",
+  "english_themes",
+  "english_tags",
+  "kannada_themes",
+  "kannada_tags",
+  "marathi_themes",
+  "marathi_tags",
+  "urdu_themes",
+  "urdu_tags",
+  "story_description",
+  "also_available_in",
+  "more_resources",
+  "release_tab",
+  "thumbnail_image",
+  "publication_date",
+  "popular_story",
+  "is_this_story_validated_by_dsert",
+  "node_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Language",
+   "options": "English\nKannada\nMarathi\nUrdu",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Text Editor",
+   "label": "Source"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_it_by_community",
+   "fieldtype": "Check",
+   "label": "Is it by community?"
+  },
+  {
+   "depends_on": "eval:doc.is_it_by_community=='1'",
+   "fieldname": "collaborators",
+   "fieldtype": "Select",
+   "label": "Collaborator(s)",
+   "options": "British Telecom\nCognizant Outreach\nDSERT (Karnataka)\nKITE (Kerala)"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Duration",
+   "label": "Duration"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_this_story_validated_by_dsert",
+   "fieldtype": "Check",
+   "label": "Is this story validated by DSERT?"
+  },
+  {
+   "fieldname": "story_audio",
+   "fieldtype": "Attach",
+   "label": "Story audio",
+   "make_attachment_public": 1
+  },
+  {
+   "fieldname": "raw_recording",
+   "fieldtype": "Attach",
+   "label": "Raw recording?"
+  },
+  {
+   "description": "Thumbnail image that appears against the episode in AntennaPod.\nOne file only.",
+   "fieldname": "thumbnail_image",
+   "fieldtype": "Attach Image",
+   "label": "Thumbnail image"
+  },
+  {
+   "description": "The date you want to display for the episode in AntennaPod",
+   "fieldname": "publication_date",
+   "fieldtype": "Datetime",
+   "label": "Publication date"
+  },
+  {
+   "description": "This will appear as the episode description in AntennaPod. Limited rich text formatting is possible. Bold, Italics, Bullets and hyperlinks.",
+   "fieldname": "story_description",
+   "fieldtype": "Text Editor",
+   "label": "Story description"
+  },
+  {
+   "fieldname": "more_resources",
+   "fieldtype": "Text Editor",
+   "label": "More resources"
+  },
+  {
+   "fieldname": "narrator",
+   "fieldtype": "Data",
+   "label": "Narrator"
+  },
+  {
+   "fieldname": "editor",
+   "fieldtype": "Data",
+   "label": "Editor"
+  },
+  {
+   "fieldname": "creator",
+   "fieldtype": "Data",
+   "label": "Creator"
+  },
+  {
+   "fieldname": "academic_year",
+   "fieldtype": "Select",
+   "label": "Academic year",
+   "options": "2023-2024\n2024-2025\n2025-2026"
+  },
+  {
+   "depends_on": "eval:doc.language == \"English\"\n",
+   "fieldname": "english_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "English themes",
+   "options": "En_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"English\"",
+   "fieldname": "english_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "English tags",
+   "options": "En_tag_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Kannada\"",
+   "fieldname": "kannada_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Kannada themes",
+   "options": "Kn_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Kannada\"",
+   "fieldname": "kannada_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Kannada tags",
+   "options": "Kn_tag_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Marathi\"",
+   "fieldname": "marathi_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Marathi themes",
+   "options": "Mr_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Marathi\"",
+   "fieldname": "marathi_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Marathi tags",
+   "options": "Mr_tag_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Urdu\"",
+   "fieldname": "urdu_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Urdu themes",
+   "options": "Ur_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Urdu\"",
+   "fieldname": "urdu_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Urdu tags",
+   "options": "Ur_tag_child"
+  },
+  {
+   "fieldname": "also_available_in",
+   "fieldtype": "Data",
+   "label": "Also available in "
+  },
+  {
+   "default": "0",
+   "fieldname": "popular_story",
+   "fieldtype": "Check",
+   "label": "popular story?"
+  },
+  {
+   "fieldname": "node_id",
+   "fieldtype": "Data",
+   "label": "node_id"
+  },
+  {
+   "fieldname": "basic_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "recording_tab",
+   "fieldtype": "Tab Break",
+   "label": "Recording"
+  },
+  {
+   "fieldname": "for_teachers_tab",
+   "fieldtype": "Tab Break",
+   "label": "For Teachers"
+  },
+  {
+   "fieldname": "release_tab",
+   "fieldtype": "Tab Break",
+   "label": "Release"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "thumbnail_image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-20 11:06:10.555473",
+ "modified_by": "Administrator",
+ "module": "Kathe Khajane",
+ "name": "Story",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Edu user",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Tech user",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
