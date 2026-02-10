@@ -1,0 +1,46 @@
+{% extends "kathe_khajane/templates/includes/web.html" %}
+
+{% block page_content %}
+
+{% include "kathe_khajane/templates/includes/filter_modal.html" %}
+
+<div class="stories-wrap">
+
+<div class="stories-header">
+
+<h2>ALL STORIES</h2>
+
+<button class="filter-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#filterModal">
+  Filters
+</button>
+
+</div>
+
+<div class="story-list">
+
+{% for s in stories %}
+
+<a href="/story?name={{ s.name }}"
+   class="story-card">
+
+<img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
+     class="story-thumb">
+
+<div class="story-meta">
+
+<h3>{{ s.title }}</h3>
+<small>{{ s.duration }} min</small>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

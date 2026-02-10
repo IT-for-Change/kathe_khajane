@@ -1,0 +1,39 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="story-page">
+
+<!-- Back link -->
+<a href="/stories?lang={{ lang_code }}">
+    ← Back
+</a>
+
+<h1>{{ story.title }}</h1>
+
+<img src="{{ story.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}">
+
+<!-- Description -->
+<div class="story-description">
+    {{ story.story_description or "" }}
+</div>
+
+<p><b>Duration:</b> {{ story.duration }} min</p>
+
+<!-- Theme badges -->
+<div class="story-tags">
+
+{% for t in themes %}
+<a href="/stories?lang={{ lang_code }}&theme={{ t }}"
+   class="badge bg-primary text-decoration-none me-1 mb-1">
+
+    {{ t }}
+
+</a>
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

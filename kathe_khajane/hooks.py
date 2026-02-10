@@ -54,12 +54,14 @@ fixtures = [
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "/assets/kathe_khajane/css/kathe_khajane.css"
+
 app_include_js = "/assets/kathe_khajane/js/kathe_khajane.js"
+app_include_css = "/assets/kathe_khajane/css/kathe_khajane.css"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/kathe_khajane/css/kathe_khajane.css"
+web_include_css = "/assets/kathe_khajane/css/site.css"
 # web_include_js = "/assets/kathe_khajane/js/kathe_khajane.js"
+web_include_js = "/assets/kathe_khajane/js/index.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "kathe_khajane/public/scss/website"

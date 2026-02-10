@@ -1,0 +1,80 @@
+<div class="modal fade" id="filterModal">
+
+<div class="modal-dialog modal-dialog-centered">
+
+<div class="modal-content filter-panel">
+
+<form method="GET" action="/stories">
+
+<input type="hidden" name="lang" value="{{ lang }}">
+
+<div class="modal-header border-0">
+<h5>Filter Stories</h5>
+<button type="button"
+        class="btn-close btn-close-white"
+        data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<h6>Themes</h6>
+
+<div class="filter-list">
+
+{% for t in themes %}
+
+<label class="filter-item">
+
+<input type="checkbox"
+       name="theme"
+       value="{{ t }}"
+       {% if t in selected_themes %}checked{% endif %}>
+
+<span>{{ t }}</span>
+
+</label>
+
+{% endfor %}
+
+</div>
+
+<hr>
+
+<h6>Duration</h6>
+
+<select name="duration" class="form-select">
+
+<option value="">All</option>
+
+<option value="short"
+{% if selected_duration=="short" %}selected{% endif %}>
+Short (&lt; 3 min)
+</option>
+
+<option value="medium"
+{% if selected_duration=="medium" %}selected{% endif %}>
+Medium (3–5 min)
+</option>
+
+<option value="long"
+{% if selected_duration=="long" %}selected{% endif %}>
+Long (&gt; 5 min)
+</option>
+
+</select>
+
+</div>
+
+<div class="modal-footer border-0">
+
+<button class="btn btn-primary w-100">
+Apply Filters
+</button>
+
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
