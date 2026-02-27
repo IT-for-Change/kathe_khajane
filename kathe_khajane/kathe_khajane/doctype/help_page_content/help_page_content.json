@@ -1,0 +1,311 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:language_code",
+ "creation": "2026-02-12 09:28:40.476049",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_section",
+  "language_code",
+  "title",
+  "subtitle",
+  "smartphone_section_title",
+  "subscribe_section_title",
+  "community_button_text",
+  "install_tutorial_text",
+  "access_tutorial_text",
+  "android_section_section",
+  "android_section_title",
+  "android_step1_text",
+  "android_install_link",
+  "android_step1_link_text",
+  "android_step2",
+  "android_step3",
+  "android_step4",
+  "android_install_tutorial_url",
+  "android_access_tutorial_url",
+  "iphone_section_section",
+  "iphone_section_title",
+  "iphone_step1_text",
+  "iphone_install_link",
+  "iphone_step1_link_text",
+  "iphone_step2",
+  "iphone_step3",
+  "iphone_step4",
+  "iphone_install_url",
+  "iphone_tutorial_url",
+  "desktop_section_section",
+  "desktop_section_title",
+  "desktop_linux_url",
+  "desktop_mac_url",
+  "desktop_windows_url",
+  "linux_title",
+  "mac_title",
+  "windows_title",
+  "download_button_text",
+  "desktop_step1_text",
+  "desktop_step2",
+  "desktop_step3",
+  "desktop_step4",
+  "desktop_install_url",
+  "desktop_tutorial_url",
+  "copied_notification_text"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_section",
+   "fieldtype": "Section Break",
+   "label": "Basic"
+  },
+  {
+   "fieldname": "language_code",
+   "fieldtype": "Data",
+   "label": "language_code",
+   "unique": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "title"
+  },
+  {
+   "fieldname": "subtitle",
+   "fieldtype": "Small Text",
+   "label": "subtitle"
+  },
+  {
+   "fieldname": "android_section_section",
+   "fieldtype": "Section Break",
+   "label": "Android section"
+  },
+  {
+   "fieldname": "android_step2",
+   "fieldtype": "Text Editor",
+   "label": "android_step2"
+  },
+  {
+   "fieldname": "android_step3",
+   "fieldtype": "Text Editor",
+   "label": "android_step3"
+  },
+  {
+   "fieldname": "android_step4",
+   "fieldtype": "Text Editor",
+   "label": "android_step4"
+  },
+  {
+   "fieldname": "iphone_section_section",
+   "fieldtype": "Section Break",
+   "label": "IPhone section"
+  },
+  {
+   "fieldname": "iphone_step2",
+   "fieldtype": "Text Editor",
+   "label": "iphone_step2"
+  },
+  {
+   "fieldname": "iphone_step3",
+   "fieldtype": "Text Editor",
+   "label": "iphone_step3"
+  },
+  {
+   "fieldname": "iphone_step4",
+   "fieldtype": "Text Editor",
+   "label": "iphone_step4"
+  },
+  {
+   "fieldname": "desktop_section_section",
+   "fieldtype": "Section Break",
+   "label": "Desktop section"
+  },
+  {
+   "fieldname": "desktop_step2",
+   "fieldtype": "Text Editor",
+   "label": "desktop_step2"
+  },
+  {
+   "fieldname": "desktop_step3",
+   "fieldtype": "Text Editor",
+   "label": "desktop_step3"
+  },
+  {
+   "fieldname": "desktop_step4",
+   "fieldtype": "Text Editor",
+   "label": "desktop_step4"
+  },
+  {
+   "fieldname": "smartphone_section_title",
+   "fieldtype": "Data",
+   "label": "Smartphone_section_title"
+  },
+  {
+   "fieldname": "android_section_title",
+   "fieldtype": "Data",
+   "label": "android_section_title"
+  },
+  {
+   "fieldname": "iphone_section_title",
+   "fieldtype": "Data",
+   "label": "iphone_section_title"
+  },
+  {
+   "fieldname": "desktop_section_title",
+   "fieldtype": "Data",
+   "label": "desktop_section_title"
+  },
+  {
+   "fieldname": "iphone_install_url",
+   "fieldtype": "Data",
+   "label": "iphone_install_url"
+  },
+  {
+   "fieldname": "iphone_tutorial_url",
+   "fieldtype": "Data",
+   "label": "iphone_tutorial_url"
+  },
+  {
+   "fieldname": "desktop_install_url",
+   "fieldtype": "Data",
+   "label": "desktop_install_url"
+  },
+  {
+   "fieldname": "desktop_tutorial_url",
+   "fieldtype": "Data",
+   "label": "desktop_tutorial_url"
+  },
+  {
+   "fieldname": "subscribe_section_title",
+   "fieldtype": "Data",
+   "label": "subscribe_section_title"
+  },
+  {
+   "fieldname": "desktop_linux_url",
+   "fieldtype": "Data",
+   "label": "desktop_linux_url"
+  },
+  {
+   "fieldname": "desktop_mac_url",
+   "fieldtype": "Data",
+   "label": "desktop_mac_url"
+  },
+  {
+   "fieldname": "desktop_windows_url",
+   "fieldtype": "Data",
+   "label": "desktop_windows_url"
+  },
+  {
+   "fieldname": "copied_notification_text",
+   "fieldtype": "Data",
+   "label": "copied_notification_text"
+  },
+  {
+   "fieldname": "install_tutorial_text",
+   "fieldtype": "Text Editor",
+   "label": "Install_tutorial_text"
+  },
+  {
+   "fieldname": "access_tutorial_text",
+   "fieldtype": "Text Editor",
+   "label": "Access_tutorial_text"
+  },
+  {
+   "fieldname": "android_install_link",
+   "fieldtype": "Data",
+   "label": "android_install_link"
+  },
+  {
+   "fieldname": "iphone_install_link",
+   "fieldtype": "Data",
+   "label": "iphone_install_link"
+  },
+  {
+   "fieldname": "linux_title",
+   "fieldtype": "Text Editor",
+   "label": "linux_title"
+  },
+  {
+   "fieldname": "mac_title",
+   "fieldtype": "Text Editor",
+   "label": "mac_title"
+  },
+  {
+   "fieldname": "windows_title",
+   "fieldtype": "Text Editor",
+   "label": "windows_title"
+  },
+  {
+   "fieldname": "download_button_text",
+   "fieldtype": "Text Editor",
+   "label": "download_button_text"
+  },
+  {
+   "fieldname": "android_install_tutorial_url",
+   "fieldtype": "Data",
+   "label": "android_install_tutorial_url"
+  },
+  {
+   "fieldname": "android_access_tutorial_url",
+   "fieldtype": "Data",
+   "label": "android_access_tutorial_url"
+  },
+  {
+   "fieldname": "android_step1_link_text",
+   "fieldtype": "Data",
+   "label": "android_step1_link_text"
+  },
+  {
+   "fieldname": "iphone_step1_link_text",
+   "fieldtype": "Data",
+   "label": "iphone_step1_link_text"
+  },
+  {
+   "fieldname": "android_step1_text",
+   "fieldtype": "Text Editor",
+   "label": "android_step1_text"
+  },
+  {
+   "fieldname": "iphone_step1_text",
+   "fieldtype": "Text Editor",
+   "label": "iphone_step1_text"
+  },
+  {
+   "fieldname": "community_button_text",
+   "fieldtype": "Data",
+   "label": "community_button_text"
+  },
+  {
+   "fieldname": "desktop_step1_text",
+   "fieldtype": "Text Editor",
+   "label": "desktop_step1_text"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-26 22:48:11.374622",
+ "modified_by": "Administrator",
+ "module": "Kathe Khajane",
+ "name": "Help Page Content",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

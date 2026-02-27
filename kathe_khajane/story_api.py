@@ -104,6 +104,7 @@ def create_story(row):
 
     for theme in themes:
         story.append(cfg["theme_child"], {
+            
             "linked_theme": theme
         })
 

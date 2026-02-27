@@ -1,0 +1,334 @@
+{% extends "kathe_khajane/templates/includes/web.html" %}
+{% block page_content %}
+<div class="kk-app kk-help text-white">
+
+  <!-- Hero with proper container -->
+  <div class="hero">
+    <div class="container">
+      <h1 class="hero-title">{{ doc.title }}</h1>
+      <p class="hero-subtitle">{{ doc.subtitle | safe }}</p>
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="#android">{{ doc.android_section_title }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#iphone">{{ doc.iphone_section_title }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#desktop">{{ doc.desktop_section_title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main content with container -->
+  <div class="container">
+    <!-- ========== SMARTPHONE SECTION ========== -->
+    <div class="section">
+      <h2 class="section-title text-center">
+        <i class="fas fa-mobile-alt me-2"></i>{{ doc.smartphone_section_title }}
+      </h2>
+
+      <!-- ANDROID -->
+      <div id="android" class="mb-4">
+        <h3 class="platform-title">
+          <i class="fab fa-android me-2"></i>{{ doc.android_section_title }}
+        </h3>
+
+        <!-- Step 1 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">1</span>
+          <div class="ms-3 step-content">
+            <p class="mb-0">{{ doc.android_step1_rendered | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">2</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.android_step2 | safe }}</p>
+            <div class="subscribe-section mt-3">
+              <h5 class="subscribe-title">
+                <i class="fas fa-language me-2"></i>{{ doc.subscribe_section_title }}
+              </h5>
+              <div class="row g-2 mt-2">
+                {% for link in main_links %}
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a href="{{ link.android_url }}" class="btn btn-podcast w-100">
+                    <i class="fas fa-podcast me-1"></i>{{ link.language_name }}
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if not community_mode %}
+            <div class="text-center mt-3">
+              <a href="/community/help" class="btn btn-community">
+                <i class="fas fa-users me-2"></i>{{ doc.community_button_text or "Community Podcasts" }}
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">3</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.android_step3 | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">4</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.android_step4 | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Tutorials -->
+        <div class="tutorial-container">
+          {% if doc.android_install_tutorial_url %}
+          <a href="{{ doc.android_install_tutorial_url }}" class="tutorial-link">
+            <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
+          </a>
+          {% endif %}
+          {% if doc.android_tutorial_url %}
+          <a href="{{ doc.android_tutorial_url }}" class="tutorial-link">
+            <i class="fas fa-video me-2"></i>{{ doc.access_tutorial_text }}
+          </a>
+          {% endif %}
+        </div>
+      </div><!-- /android -->
+
+      <div class="divider my-4"></div>
+
+      <!-- IPHONE -->
+      <div id="iphone" class="mb-5">
+        <h3 class="platform-title">
+          <i class="fab fa-apple me-2"></i>{{ doc.iphone_section_title }}
+        </h3>
+
+        <!-- Step 1 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">1</span>
+          <div class="ms-3 step-content">
+            <p class="mb-0">{{ doc.iphone_step1_rendered | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">2</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.iphone_step2 | safe }}</p>
+            <div class="subscribe-section mt-3">
+              <h5 class="subscribe-title">
+                <i class="fas fa-language me-2"></i>{{ doc.subscribe_section_title }}
+              </h5>
+              <div class="row g-2 mt-2">
+                {% for link in main_links %}
+                <div class="col-12 col-sm-6 col-md-3">
+                  <a href="{{ link.iphone_url }}" class="btn btn-podcast w-100">
+                    <i class="fas fa-podcast me-1"></i>{{ link.language_name }}
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if not community_mode %}
+            <div class="text-center mt-3">
+              <a href="/community/help" class="btn btn-community">
+                <i class="fas fa-users me-2"></i>{{ doc.community_button_text or "Community Podcasts" }}
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">3</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.iphone_step3 | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="d-flex mb-4">
+          <span class="step-number">4</span>
+          <div class="ms-3 step-content">
+            <p>{{ doc.iphone_step4 | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Tutorials -->
+        <div class="tutorial-container">
+          {% if doc.iphone_install_tutorial_url %}
+          <a href="{{ doc.iphone_install_tutorial_url }}" class="tutorial-link me-3">
+            <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
+          </a>
+          {% endif %}
+          {% if doc.iphone_tutorial_url %}
+          <a href="{{ doc.iphone_tutorial_url }}" class="tutorial-link">
+            <i class="fas fa-video me-2"></i>{{ doc.access_tutorial_text }}
+          </a>
+          {% endif %}
+        </div>
+      </div><!-- /iphone -->
+
+    </div><!-- /smartphone section -->
+
+    <!-- ========== DESKTOP SECTION ========== -->
+    <div class="section" id="desktop">
+      <h2 class="section-title text-center">
+        <i class="fas fa-desktop me-2"></i>{{ doc.desktop_section_title }}
+      </h2>
+
+      <!-- Step 1 -->
+      <div class="d-flex mb-4">
+        <span class="step-number">1</span>
+        <div class="ms-3 step-content">
+          <p class="mb-0">{{ doc.desktop_step1_rendered | safe }}</p>
+          <div class="row g-3 my-3">
+            <div class="col-md-4">
+              <div class="platform-card">
+                <h5 class="platform-card-title">
+                  <i class="fab fa-linux me-2"></i>{{ doc.linux_title }}
+                </h5>
+                {% if doc.desktop_linux_url %}
+                <a href="{{ doc.desktop_linux_url }}" class="btn btn-download">
+                  <i class="fas fa-download me-2"></i>{{ doc.download_button_text }}
+                </a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="platform-card">
+                <h5 class="platform-card-title">
+                  <i class="fab fa-windows me-2"></i>{{ doc.windows_title }}
+                </h5>
+                {% if doc.desktop_windows_url %}
+                <a href="{{ doc.desktop_windows_url }}" class="btn btn-download">
+                  <i class="fas fa-download me-2"></i>{{ doc.download_button_text }}
+                </a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="platform-card">
+                <h5 class="platform-card-title">
+                  <i class="fab fa-apple me-2"></i>{{ doc.mac_title }}
+                </h5>
+                {% if doc.desktop_mac_url %}
+                <a href="{{ doc.desktop_mac_url }}" class="btn btn-download">
+                  <i class="fas fa-download me-2"></i>{{ doc.download_button_text }}
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /step 1 -->
+
+      <!-- Step 2 -->
+      <div class="d-flex mb-4">
+        <span class="step-number">2</span>
+        <div class="ms-3 step-content">
+          <p>{{ doc.desktop_step2 | safe }}</p>
+          <div class="subscribe-section mt-3">
+            <h5 class="subscribe-title">
+              <i class="fas fa-language me-2"></i>{{ doc.subscribe_section_title }}
+            </h5>
+            <div class="row g-2 mt-2">
+              {% for link in main_links %}
+              <div class="col-12 col-sm-6 col-md-3">
+                <button class="btn btn-podcast w-100 copy-btn"
+                        data-url="{{ link.desktop_url }}">
+                  <i class="fas fa-copy me-2"></i>{{ link.language_name }}
+                </button>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% if not community_mode %}
+          <div class="text-center mt-3">
+            <a href="/community/help" class="btn btn-community">
+              <i class="fas fa-users me-2"></i>{{ doc.community_button_text or "Community Podcasts" }}
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div><!-- /step 2 -->
+
+      <!-- Step 3 -->
+      <div class="d-flex mb-4">
+        <span class="step-number">3</span>
+        <div class="ms-3 step-content">
+          <p>{{ doc.desktop_step3 | safe }}</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="d-flex mb-4">
+        <span class="step-number">4</span>
+        <div class="ms-3 step-content">
+          <p>{{ doc.desktop_step4 | safe }}</p>
+        </div>
+      </div>
+
+      <!-- Tutorials -->
+      <div class="tutorial-container">
+        {% if doc.desktop_install_tutorial_url %}
+        <a href="{{ doc.desktop_install_tutorial_url }}" class="tutorial-link me-3">
+          <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
+        </a>
+        {% endif %}
+        {% if doc.desktop_tutorial_url %}
+        <a href="{{ doc.desktop_tutorial_url }}" class="tutorial-link">
+          <i class="fas fa-video me-2"></i>{{ doc.access_tutorial_text }}
+        </a>
+        {% endif %}
+      </div>
+
+    </div><!-- /desktop section -->
+
+  </div><!-- /container -->
+
+</div><!-- /kk-help -->
+
+<!-- Copy notification -->
+<div class="copied-notification" id="copiedNotification">
+  <i class="fas fa-check-circle me-2"></i>{{ doc.copied_notification_text }}
+</div>
+
+<script>
+function copyToClipboard(url) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(showCopied);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showCopied(); }
+    catch(e) { console.error('Copy failed', e); }
+    document.body.removeChild(ta);
+  }
+}
+
+function showCopied() {
+  const n = document.getElementById('copiedNotification');
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 2000);
+}
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    copyToClipboard(this.getAttribute('data-url'));
+  });
+});
+</script>
+{% endblock %}

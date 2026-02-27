@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class Storycast(Document):
-    pass
+class HelpPageContent(Document):
+	pass

@@ -1,7 +1,29 @@
-<nav class="kk-navbar">
-
-<a href="/home">Home</a>
-<a href="/about">About</a>
-<a href="/help">Help</a>
-
+<nav class="kk-navbar navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/home">Kathe Khajane</a>
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">{{ _("Home") }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about?lang={{ lang or 'en' }}">{{ _("About") }}</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#"
+             data-bs-toggle="dropdown">{{ _("Help") }}</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="/help?lang=en">English</a></li>
+            <li><a class="dropdown-item" href="/help?lang=kn">ಕನ್ನಡ</a></li>
+            <li><a class="dropdown-item" href="/help?lang=mr">मराठी</a></li>
+            <li><a class="dropdown-item" href="/help?lang=ur">اُردُو</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

@@ -1,0 +1,46 @@
+
+
+.filter-panel {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333;
+}
+.filter-panel .modal-title  { color: #ffffff; font-weight: 600; }
+.filter-panel .modal-header { border-bottom: 1px solid #333; }
+.filter-panel .modal-footer { border-top:    1px solid #333; }
+.filter-panel .btn-close    { filter: invert(1); }
+
+/* h6 headings (Themes, Duration) — must be white */
+.filter-panel h6 {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+.filter-panel hr {
+  border-color: #333;
+  opacity: 1;
+}
+
+.filter-panel .form-select {
+  background-color: #333;
+  color: #ffffff;
+  border-color: #555;
+}
+.filter-panel .form-select:focus {
+  background-color: #444;
+  border-color: #2274f0;
+  box-shadow: 0 0 0 0.25rem rgba(34, 116, 240, 0.25);
+  color: #ffffff;
+}
+
+.filter-panel .form-label       { color: #ffffff; font-weight: 600; }
+.filter-panel .form-check-label { color: #ffffff; cursor: pointer; }
+.filter-panel .form-check-input { accent-color: #2274f0; cursor: pointer; }
+
+.filter-list {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.filter-item                         { cursor: pointer; padding: 4px 0; }
+.filter-item span                    { margin-left: 8px; color: #ffffff; }
+.filter-item input[type="checkbox"]  { accent-color: #2274f0; }

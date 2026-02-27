@@ -1,46 +1,85 @@
 {% extends "kathe_khajane/templates/includes/web.html" %}
-
 {% block page_content %}
+<div class="kk-app container py-3 py-md-4 text-white {% if lang == 'ur' %}kk-rtl{% endif %}">
 
-{% include "kathe_khajane/templates/includes/filter_modal.html" %}
+  {% if is_filtered %}
+  <!-- ===== FILTERED VIEW ===== -->
+  <h1 class="text-center mb-4">{{ _("Filtered Stories") }}</h1>
 
-<div class="stories-wrap">
+  <!-- Active filter badges -->
+  <div class="filter-badges d-flex flex-wrap gap-2 justify-content-center mb-4">
+    {% for t in selected_themes %}
+    <span class="badge bg-white text-black rounded-pill px-3 py-2">{{ t }}</span>
+    {% endfor %}
+    {% if selected_duration %}
+    <span class="badge bg-white text-black rounded-pill px-3 py-2">{{ selected_duration }}</span>
+    {% endif %}
+  </div>
 
-<div class="stories-header">
+  <!-- Action buttons -->
+  <div class="bottom-buttons">
+    {% if combined_deep_link %}
+    <a href="{{ combined_deep_link }}" class="btn btn-success" target="_blank">
+      <i class="fas fa-podcast me-2"></i>{{ _("Open All in AntennaPod") }}
+    </a>
+    {% endif %}
+    <a href="/stories?lang={{ lang }}" class="btn btn-dark">
+      <i class="fas fa-arrow-left me-2"></i>{{ _("Back to Stories") }}
+    </a>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+      <i class="fas fa-filter me-2"></i>{{ _("Filters") }}
+    </button>
+  </div>
 
-<h2>ALL STORIES</h2>
+  {% else %}
+  <!-- ===== NORMAL VIEW ===== -->
 
-<button class="filter-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#filterModal">
-  Filters
-</button>
+  <!-- Popular Stories -->
+  {% if top_stories %}
+  <section class="mb-5">
+    <h2 class="mb-4">{{ _("Popular Stories") }}</h2>
+    <div class="popular-scroll">
+      {% for s in top_stories %}
+      <a href="/story?name={{ s.name }}&lang={{ lang }}" class="popular-card">
+        <img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
+             alt="{{ s.title }}" title="{{ s.title }}">
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Stories header - FIXED ALIGNMENT -->
+  <div class="stories-header">
+    <h1 class="mb-0">{{ _("All Stories") }}</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+      <i class="fas fa-filter me-2"></i>{{ _("Filters") }}
+    </button>
+  </div>
+
+  {% endif %}
+
+  {% include "kathe_khajane/templates/includes/filter_modal.html" %}
+
+  <!-- Stories list -->
+  <div class="list-container mt-4">
+    {% for s in stories %}
+    <a href="/story?name={{ s.name }}&lang={{ lang }}" class="story-item">
+      <img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
+           class="story-thumbnail" alt="{{ s.title }}">
+      <div class="story-info">
+        <div class="story-title">{{ s.title }}</div>
+        <div class="story-meta">
+          <span>{{ s.duration }} {{ _("min") }}</span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+
+    {% if not stories %}
+    <p class="text-center text-muted mt-5">{{ _("No stories found for the selected filters.") }}</p>
+    {% endif %}
+  </div>
 
 </div>
-
-<div class="story-list">
-
-{% for s in stories %}
-
-<a href="/story?name={{ s.name }}"
-   class="story-card">
-
-<img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
-     class="story-thumb">
-
-<div class="story-meta">
-
-<h3>{{ s.title }}</h3>
-<small>{{ s.duration }} min</small>
-
-</div>
-
-</a>
-
-{% endfor %}
-
-</div>
-
-</div>
-
 {% endblock %}

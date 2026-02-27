@@ -1,0 +1,64 @@
+/* ============================================================
+   STORY_VIEWER.CSS
+   Individual story detail page — scoped under .kk-app
+   ============================================================ */
+
+.kk-app .story-title-main {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.kk-app .story-image-wrapper img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.kk-app .story-themes   { margin: 10px 0 15px; }
+
+.kk-app .theme-badge {
+  background: #0d6efd;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.kk-app .theme-badge:hover { background: #0f5ed6; color: #ffffff; }
+
+.kk-app .back-link       { color: #aaa; }
+.kk-app .back-link:hover { color: #ffffff; }
+
+.kk-app .story-description p  { margin-bottom: 1rem; line-height: 1.6; color: #ffffff; }
+.kk-app .story-description ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+.kk-app .story-description li { margin-bottom: 0.5rem; color: #ffffff; }
+
+.kk-app .story-resources a {
+  color: #0d6efd;
+  display: block;
+  margin-top: 4px;
+  word-break: break-all;
+  text-decoration: none;
+}
+.kk-app .story-resources a:hover { text-decoration: underline; }
+
+.kk-app .story-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+  margin-top: 1rem;
+}
+
+@media (max-width: 576px) {
+  .kk-app .story-title-main   { font-size: 1.6rem; }
+  .kk-app .story-buttons      { flex-direction: column; }
+  .kk-app .story-buttons .btn { width: 100%; }
+}

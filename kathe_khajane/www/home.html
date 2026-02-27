@@ -1,33 +1,15 @@
 {% extends "kathe_khajane/templates/includes/web.html" %}
-
 {% block page_content %}
-
-<div class="home-wrapper">
-
+<div class="kk-home d-flex flex-column justify-content-center
+            align-items-center min-vh-100 text-white">
   <div class="lang-grid">
-
-    <a href="/stories?lang=en" class="lang-card">
-      English
-    </a>
-
-    <a href="/stories?lang=kn" class="lang-card">
-      ಕನ್ನಡ
-    </a>
-
-    <a href="/stories?lang=ur" class="lang-card">
-      اُردُو
-    </a>
-
-    <a href="/stories?lang=mr" class="lang-card">
-      मराठी
-    </a>
-
+    <a href="/stories?lang=en" class="lang-card">English</a>
+    <a href="/stories?lang=kn" class="lang-card">ಕನ್ನಡ</a>
+    <a href="/stories?lang=ur" class="lang-card">اُردُو</a>
+    <a href="/stories?lang=mr" class="lang-card">मराठी</a>
   </div>
-
-  <div class="home-version">
-    Version: 1.0.0
+  <div class="home-version mt-4 text-muted">
+    {{ _("Version") }} 1.0.0
   </div>
-
 </div>
-
 {% endblock %}
