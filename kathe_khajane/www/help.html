@@ -4,7 +4,7 @@
 
   <!-- Hero with proper container -->
   <div class="hero">
-    <div class="container">
+    <div class="hero-inner">
       <h1 class="hero-title">{{ doc.title }}</h1>
       <p class="hero-subtitle">{{ doc.subtitle | safe }}</p>
       <ul class="nav nav-pills justify-content-center">
@@ -90,7 +90,7 @@
 
         <!-- Tutorials -->
         <div class="tutorial-container">
-          {% if doc.android_install_tutorial_url %}
+          {% if doc.android_install_url %}
           <a href="{{ doc.android_install_tutorial_url }}" class="tutorial-link">
             <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
           </a>
@@ -166,7 +166,7 @@
 
         <!-- Tutorials -->
         <div class="tutorial-container">
-          {% if doc.iphone_install_tutorial_url %}
+          {% if doc.iphone_install_url %}
           <a href="{{ doc.iphone_install_tutorial_url }}" class="tutorial-link me-3">
             <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
           </a>
@@ -191,7 +191,7 @@
       <div class="d-flex mb-4">
         <span class="step-number">1</span>
         <div class="ms-3 step-content">
-          <p class="mb-0">{{ doc.desktop_step1_rendered | safe }}</p>
+          <p class="mb-0">{{ doc.desktop_step1_text | safe }}</p>
           <div class="row g-3 my-3">
             <div class="col-md-4">
               <div class="platform-card">
@@ -281,7 +281,7 @@
 
       <!-- Tutorials -->
       <div class="tutorial-container">
-        {% if doc.desktop_install_tutorial_url %}
+        {% if doc.desktop_install_url %}
         <a href="{{ doc.desktop_install_tutorial_url }}" class="tutorial-link me-3">
           <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
         </a>
