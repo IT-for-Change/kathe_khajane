@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:theme-te-{###}",
  "creation": "2026-03-05 10:24:55.282841",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -23,10 +24,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 10:25:15.741921",
+ "modified": "2026-03-05 12:28:18.400717",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Telugu themes",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -44,7 +46,9 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "theme"
 }

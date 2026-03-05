@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:theme-hi-{###}",
  "creation": "2026-03-05 10:25:40.812625",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -23,10 +24,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 10:25:56.792398",
+ "modified": "2026-03-05 12:29:42.545015",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Hindi themes",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -44,7 +46,9 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "theme"
 }
