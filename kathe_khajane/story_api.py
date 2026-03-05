@@ -28,6 +28,24 @@ LANGUAGE_CONFIG = {
         "tag_doctype": "Urdu tags",
         "tag_child": "urdu_tags",
     },
+    "Tamil": {
+        "theme_doctype": "Tamil themes",
+        "theme_child": "tamil_themes",
+        "tag_doctype": "Tamil tags",
+        "tag_child": "tamil_tags",
+    },
+    "Hindi": {
+        "theme_doctype": "Hindi themes",
+        "theme_child": "hindi_themes",
+        "tag_doctype": "Hindi tags",
+        "tag_child": "hindi_tags",
+    },
+    "Telugu": {
+        "theme_doctype": "Telugu themes",
+        "theme_child": "telugu_themes",
+        "tag_doctype": "Telugu tags",
+        "tag_child": "telugu_tags",
+    }
 }
 
 
@@ -93,7 +111,7 @@ def create_story(row):
     story.title = title
     story.language = language
     story.also_available_in = row.get("field_also_available_in")
-    story.collaborators = row.get("field_collaborator_s_")
+    story.collaborators = split_csv(row.get("field_collaborator_s_"))
     story.duration = parse_duration(row.get("field_duration"))
     story.story_description = row.get("body")
     story.more_resources = row.get("field_more_resources")
@@ -161,13 +179,11 @@ def import_all_story_csv():
                     "error": frappe.get_traceback()
                 })
 
-        mapping_file = os.path.join(
-            folder,
-            f"{file}_mapping.csv"
-        )
+    mapping_file = frappe.get_site_path(
+        "private", "files", "stories_mapping.csv"
+    )
 
     with open(mapping_file, "w", newline="", encoding="utf-8") as f:
-
         writer = csv.DictWriter(
             f,
             fieldnames=["story_name", "node_id"]
@@ -176,10 +192,8 @@ def import_all_story_csv():
         writer.writeheader()
         writer.writerows(story_node_map)
 
-    results[file] = {
+    return {
         "created": len(created),
         "skipped": len(skipped),
         "failed": len(failed)
     }
-
-    return results
