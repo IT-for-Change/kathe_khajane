@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:theme-te-{###}",
  "creation": "2026-03-05 10:24:55.282841",
@@ -24,7 +25,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 12:28:18.400717",
+ "modified": "2026-03-05 12:54:02.965413",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Telugu themes",

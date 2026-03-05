@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:tag-te-{###}",
  "creation": "2026-03-05 10:34:28.128607",
@@ -24,7 +25,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 12:32:21.978974",
+ "modified": "2026-03-05 12:54:30.137788",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Telugu tags",

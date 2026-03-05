@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:tag-ta-{###}",
  "creation": "2026-03-05 10:33:35.328551",
@@ -24,7 +25,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 12:31:56.780607",
+ "modified": "2026-03-05 12:54:22.156287",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Tamil tags",

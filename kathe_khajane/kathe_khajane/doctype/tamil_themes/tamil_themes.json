@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:theme-ta-{###}",
  "creation": "2026-03-05 10:24:09.463269",
@@ -24,7 +25,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 12:27:46.879165",
+ "modified": "2026-03-05 12:53:51.818558",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Tamil themes",
