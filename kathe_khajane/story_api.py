@@ -1,5 +1,6 @@
 import frappe
 import csv
+import os
 from frappe.utils import cint
 
 LANGUAGE_CONFIG = {
@@ -29,10 +30,12 @@ LANGUAGE_CONFIG = {
     },
 }
 
+
 def split_csv(value):
     if not value:
         return []
     return [v.strip() for v in str(value).split(",") if v.strip()]
+
 
 def get_docnames(doctype, id_field, ids):
     if not ids:
@@ -44,12 +47,12 @@ def get_docnames(doctype, id_field, ids):
         pluck="name"
     )
 
-def story_exists(title):
 
+def story_exists(title):
     return frappe.db.exists("Story", {"title": title})
 
-def parse_duration(value):
 
+def parse_duration(value):
     if not value:
         return 0
 
@@ -61,12 +64,14 @@ def parse_duration(value):
 
 
 def create_story(row):
+
     title = row.get("title")
 
     if not title:
-        frappe.throw("Title is missing in CSV")
+        frappe.throw("Title missing")
 
     existing_story = story_exists(title)
+
     if existing_story:
         return {
             "status": "skipped",
@@ -104,7 +109,6 @@ def create_story(row):
 
     for theme in themes:
         story.append(cfg["theme_child"], {
-            
             "linked_theme": theme
         })
 
@@ -120,58 +124,76 @@ def create_story(row):
         "story": story.name
     }
 
-@frappe.whitelist(methods=["POST"])
-def import_stories_from_csv():
-    story_node_map = []
 
-    csv_path = frappe.get_site_path("private", "marathi.csv")
+@frappe.whitelist()
+def import_all_story_csv():
 
-    if not frappe.os.path.exists(csv_path):
-        frappe.throw("stories.csv not found")
-    
-    created = []
-    skipped = []
-    failed = []
+    folder = frappe.get_site_path("private", "story_imports")
 
-    with open(csv_path, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+    if not os.path.exists(folder):
+        frappe.throw("story_imports folder not found")
 
-        for row in reader:
-            try:
-                result = create_story(row)
+    results = {}
 
-                if result["status"] == "created":
-                    created.append(result["story"])
+    for file in os.listdir(folder):
 
-                    story_node_map.append({
-                        "story_name": result["story"],
-                        "node_id": row.get("nid")
+        if not file.endswith(".csv"):
+            continue
+
+        csv_path = os.path.join(folder, file)
+
+        created = []
+        skipped = []
+        failed = []
+        story_node_map = []
+
+        with open(csv_path, newline="", encoding="utf-8") as f:
+
+            reader = csv.DictReader(f)
+
+            for row in reader:
+
+                try:
+                    result = create_story(row)
+
+                    if result["status"] == "created":
+
+                        created.append(result["story"])
+
+                        story_node_map.append({
+                            "story_name": result["story"],
+                            "node_id": row.get("nid")
+                        })
+
+                    else:
+                        skipped.append(result)
+
+                except Exception:
+
+                    failed.append({
+                        "title": row.get("title"),
+                        "error": frappe.get_traceback()
                     })
-                else:
-                    skipped.append(result)
 
-            except Exception:
-                failed.append({
-                    "title": row.get("title"),
-                    "error": frappe.get_traceback()
-                })
+        mapping_file = os.path.join(
+            folder,
+            f"{file}_mapping.csv"
+        )
 
-    if story_node_map:
-        output_path = frappe.get_site_path("private", "story_node_mapping.csv")
+        with open(mapping_file, "w", newline="", encoding="utf-8") as f:
 
-        with open(output_path, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(
                 f,
                 fieldnames=["story_name", "node_id"]
             )
+
             writer.writeheader()
             writer.writerows(story_node_map)
 
-    return {
-        "created_count": len(created),
-        "skipped_count": len(skipped),
-        "failed_count": len(failed),
-        "created": created,
-        "skipped": skipped,
-        "failed": failed
-    }
+        results[file] = {
+            "created": len(created),
+            "skipped": len(skipped),
+            "failed": len(failed)
+        }
+
+    return results

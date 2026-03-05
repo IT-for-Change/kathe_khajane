@@ -29,8 +29,14 @@
   "marathi_tags",
   "urdu_themes",
   "urdu_tags",
-  "story_description",
+  "tamil_themes",
+  "tamil_tags",
+  "telugu_themes",
+  "telugu_tags",
+  "hindi_themes",
+  "hindi_tags",
   "also_available_in",
+  "story_description",
   "more_resources",
   "release_tab",
   "thumbnail_image",
@@ -53,7 +59,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Language",
-   "options": "English\nKannada\nMarathi\nUrdu",
+   "options": "English\nKannada\nMarathi\nUrdu\nTamil\nTelugu\nHIndi",
    "reqd": 1
   },
   {
@@ -144,56 +150,56 @@
    "depends_on": "eval:doc.language == \"English\"\n",
    "fieldname": "english_themes",
    "fieldtype": "Table MultiSelect",
-   "label": "English themes",
+   "label": "English theme(s)",
    "options": "En_theme_child"
   },
   {
    "depends_on": "eval:doc.language == \"English\"",
    "fieldname": "english_tags",
    "fieldtype": "Table MultiSelect",
-   "label": "English tags",
+   "label": "English tag(s)",
    "options": "En_tag_child"
   },
   {
    "depends_on": "eval:doc.language == \"Kannada\"",
    "fieldname": "kannada_themes",
    "fieldtype": "Table MultiSelect",
-   "label": "Kannada themes",
+   "label": "Kannada theme(s)",
    "options": "Kn_theme_child"
   },
   {
    "depends_on": "eval:doc.language == \"Kannada\"",
    "fieldname": "kannada_tags",
    "fieldtype": "Table MultiSelect",
-   "label": "Kannada tags",
+   "label": "Kannada tag(s)",
    "options": "Kn_tag_child"
   },
   {
    "depends_on": "eval:doc.language == \"Marathi\"",
    "fieldname": "marathi_themes",
    "fieldtype": "Table MultiSelect",
-   "label": "Marathi themes",
+   "label": "Marathi theme(s)",
    "options": "Mr_theme_child"
   },
   {
    "depends_on": "eval:doc.language == \"Marathi\"",
    "fieldname": "marathi_tags",
    "fieldtype": "Table MultiSelect",
-   "label": "Marathi tags",
+   "label": "Marathi tag(s)",
    "options": "Mr_tag_child"
   },
   {
    "depends_on": "eval:doc.language == \"Urdu\"",
    "fieldname": "urdu_themes",
    "fieldtype": "Table MultiSelect",
-   "label": "Urdu themes",
+   "label": "Urdu theme(s)",
    "options": "Ur_theme_child"
   },
   {
    "depends_on": "eval:doc.language == \"Urdu\"",
    "fieldname": "urdu_tags",
    "fieldtype": "Table MultiSelect",
-   "label": "Urdu tags",
+   "label": "Urdu tag(s)",
    "options": "Ur_tag_child"
   },
   {
@@ -231,6 +237,48 @@
    "fieldname": "release_tab",
    "fieldtype": "Tab Break",
    "label": "Release"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Tamil\"",
+   "fieldname": "tamil_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Tamil theme(s)",
+   "options": "Ta_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Tamil\"",
+   "fieldname": "tamil_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Tamil tag(s)",
+   "options": "Ta_tag_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Telugu\"",
+   "fieldname": "telugu_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Telugu theme(s)",
+   "options": "Te_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Telugu\"",
+   "fieldname": "telugu_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Telugu tag(s)",
+   "options": "Te_tag_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Hindi\"",
+   "fieldname": "hindi_themes",
+   "fieldtype": "Table MultiSelect",
+   "label": "Hindi theme(s)",
+   "options": "Hi_theme_child"
+  },
+  {
+   "depends_on": "eval:doc.language == \"Hindi\"",
+   "fieldname": "hindi_tags",
+   "fieldtype": "Table MultiSelect",
+   "label": "Hindi tag(s)",
+   "options": "Hi_tag_child"
   }
  ],
  "grid_page_length": 50,
@@ -238,7 +286,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2026-01-22 12:35:55.201726",
+ "modified": "2026-03-05 10:49:06.528747",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Story",
