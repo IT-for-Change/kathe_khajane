@@ -128,72 +128,58 @@ def create_story(row):
 @frappe.whitelist()
 def import_all_story_csv():
 
-    folder = frappe.get_site_path("private", "story_imports")
+    csv_path = frappe.get_site_path("private", "files", "stories(2).csv")
 
-    if not os.path.exists(folder):
-        frappe.throw("story_imports folder not found")
+    if not os.path.exists(csv_path):
+        frappe.throw("stories.csv not found in private/files")
 
-    results = {}
+    created = []
+    skipped = []
+    failed = []
+    story_node_map = []
 
-    for file in os.listdir(folder):
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
 
-        if not file.endswith(".csv"):
-            continue
+        for row in reader:
+            try:
+                result = create_story(row)
 
-        csv_path = os.path.join(folder, file)
+                if result["status"] == "created":
+                    created.append(result["story"])
 
-        created = []
-        skipped = []
-        failed = []
-        story_node_map = []
-
-        with open(csv_path, newline="", encoding="utf-8") as f:
-
-            reader = csv.DictReader(f)
-
-            for row in reader:
-
-                try:
-                    result = create_story(row)
-
-                    if result["status"] == "created":
-
-                        created.append(result["story"])
-
-                        story_node_map.append({
-                            "story_name": result["story"],
-                            "node_id": row.get("nid")
-                        })
-
-                    else:
-                        skipped.append(result)
-
-                except Exception:
-
-                    failed.append({
-                        "title": row.get("title"),
-                        "error": frappe.get_traceback()
+                    story_node_map.append({
+                        "story_name": result["story"],
+                        "node_id": row.get("nid")
                     })
+                else:
+                    skipped.append(result)
+
+            except Exception:
+                failed.append({
+                    "title": row.get("title"),
+                    "error": frappe.get_traceback()
+                })
 
         mapping_file = os.path.join(
             folder,
             f"{file}_mapping.csv"
         )
 
-        with open(mapping_file, "w", newline="", encoding="utf-8") as f:
+    with open(mapping_file, "w", newline="", encoding="utf-8") as f:
 
-            writer = csv.DictWriter(
-                f,
-                fieldnames=["story_name", "node_id"]
-            )
+        writer = csv.DictWriter(
+            f,
+            fieldnames=["story_name", "node_id"]
+        )
 
-            writer.writeheader()
-            writer.writerows(story_node_map)
+        writer.writeheader()
+        writer.writerows(story_node_map)
 
-        results[file] = {
-            "created": len(created),
-            "skipped": len(skipped),
-            "failed": len(failed)
-        }
+    results[file] = {
+        "created": len(created),
+        "skipped": len(skipped),
+        "failed": len(failed)
+    }
 
     return results
