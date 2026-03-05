@@ -111,7 +111,7 @@ def create_story(row):
     story.title = title
     story.language = language
     story.also_available_in = row.get("field_also_available_in")
-    story.collaborators = split_csv(row.get("field_collaborator_s_"))
+    # story.collaborators = split_csv(row.get("field_collaborator_s_"))
     story.duration = parse_duration(row.get("field_duration"))
     story.story_description = row.get("body")
     story.more_resources = row.get("field_more_resources")
