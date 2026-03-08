@@ -82,12 +82,10 @@ def parse_duration(value):
 def create_story(row):
 
     title = row.get("title")
-
     if not title:
         frappe.throw("Title missing")
 
     existing_story = story_exists(title)
-
     if existing_story:
         return {
             "status": "skipped",
@@ -97,7 +95,6 @@ def create_story(row):
 
     language = row.get("field_language")
     cfg = LANGUAGE_CONFIG.get(language)
-
     if not cfg:
         frappe.throw(f"Unsupported language: {language}")
 
@@ -106,43 +103,39 @@ def create_story(row):
 
     story = frappe.new_doc("Story")
 
+    # Basic Information
     story.title = title
     story.language = language
     story.also_available_in = row.get("field_also_available_in")
 
-    # collaborators removed earlier so we skip it
-    # story.collaborators = row.get("field_collaborator_s_")
-
+    # Recording
+    story.is_it_by_community = cint(row.get("field_is_it_by_community") == "Yes")
     story.duration = parse_duration(row.get("field_duration"))
 
+    # Story content
     story.story_description = row.get("body")
-
     story.more_resources = row.get("field_more_resources")
 
+    # Release
     story.publication_date = row.get("field_publication_date")
-
-    story.node_id = row.get("nid")
-
-    story.is_it_by_community = cint(row.get("field_is_it_by_community") == "Yes")
-
+    story.popular_story = cint(row.get("field_popular_story") == "Y")
     story.is_this_story_validated_by_dsert = cint(row.get("field_dsert_validated") == "On")
 
-    story.popular_story = cint(row.get("field_popular_story") == "Y")
+    # node_id
+    story.node_id = row.get("nid")
 
+    # Themes and Tags (child tables)
     themes = get_docnames(cfg["theme_doctype"], "source_id", theme_ids)
     tags = get_docnames(cfg["tag_doctype"], "tag_id", tag_ids)
 
     for theme in themes:
-        story.append(cfg["theme_child"], {
-            "linked_theme": theme
-        })
+        story.append(cfg["theme_child"], {"linked_theme": theme})
 
     for tag in tags:
-        story.append(cfg["tag_child"], {
-            "linked_tag": tag
-        })
+        story.append(cfg["tag_child"], {"linked_tag": tag})
 
     story.insert(ignore_permissions=True)
+    frappe.db.commit()  # ← commit each story immediately
 
     return {
         "status": "created",
@@ -151,6 +144,16 @@ def create_story(row):
 
 
 @frappe.whitelist()
+def debug_one_story():
+    csv_path = frappe.get_site_path("private", "files", "stories(2).csv")
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        row = next(reader)  # just the first row
+        frappe.log_error(str(dict(row)), "CSV Row Debug")
+        result = create_story(row)
+        frappe.db.commit()
+        return result
+        
 def import_all_story_csv():
 
     csv_path = frappe.get_site_path("private", "files", "stories(2).csv")
