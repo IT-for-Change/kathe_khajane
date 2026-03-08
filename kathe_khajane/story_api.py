@@ -3,6 +3,10 @@ import csv
 import os
 from frappe.utils import cint
 
+
+logger = frappe.logger("story_import")
+
+
 LANGUAGE_CONFIG = {
     "English": {
         "theme_doctype": "English themes",
@@ -45,8 +49,14 @@ LANGUAGE_CONFIG = {
         "theme_child": "telugu_themes",
         "tag_doctype": "Telugu tags",
         "tag_child": "telugu_tags",
-    }
+    },
 }
+
+
+def clean(value):
+    if value is None:
+        return None
+    return str(value).strip()
 
 
 def split_csv(value):
@@ -71,19 +81,22 @@ def story_exists(title):
 
 
 def parse_duration(value):
+
     if not value:
         return 0
 
     try:
-        minutes, seconds = str(value).split(".")
+        value = str(value).replace(":", ".")
+        minutes, seconds = value.split(".")
         return int(minutes) * 60 + int(seconds)
     except Exception:
+        logger.warning(f"Invalid duration: {value}")
         return 0
 
 
 def create_story(row):
 
-    title = row.get("title")
+    title = clean(row.get("title"))
 
     if not title:
         frappe.throw("Title missing")
@@ -91,17 +104,20 @@ def create_story(row):
     existing_story = story_exists(title)
 
     if existing_story:
+        logger.info(f"Skipping existing story: {title}")
         return {
             "status": "skipped",
-            "reason": "already exists",
             "story": existing_story
         }
 
-    language = row.get("field_language")
+    language = clean(row.get("field_language"))
+
+    logger.info(f"Processing story: {title} | language={language}")
+
     cfg = LANGUAGE_CONFIG.get(language)
 
     if not cfg:
-        frappe.throw(f"Unsupported language: {language}")
+        raise Exception(f"Unsupported language: {language}")
 
     theme_ids = split_csv(row.get("field_theme_s_"))
     tag_ids = split_csv(row.get("field_tag_s_"))
@@ -110,17 +126,34 @@ def create_story(row):
 
     story.title = title
     story.language = language
-    story.also_available_in = row.get("field_also_available_in")
-    # story.collaborators = split_csv(row.get("field_collaborator_s_"))
+
+    story.story_description = clean(row.get("body"))
+    story.source = clean(row.get("body"))
+
+    story.also_available_in = clean(row.get("field_also_available_in"))
+
     story.duration = parse_duration(row.get("field_duration"))
-    story.story_description = row.get("body")
-    story.more_resources = row.get("field_more_resources")
-    story.publication_date = row.get("field_publication_date")
-    story.node_id = row.get("nid")
+
+    story.more_resources = clean(row.get("field_more_resources"))
+
+    story.publication_date = clean(row.get("field_publication_date"))
+
+    story.node_id = clean(row.get("nid"))
 
     story.is_it_by_community = cint(row.get("field_is_it_by_community") == "Yes")
     story.is_this_story_validated_by_dsert = cint(row.get("field_dsert_validated") == "On")
     story.popular_story = cint(row.get("field_popular_story") == "Y")
+
+    logger.info(
+        f"""
+        Story values
+        title={story.title}
+        language={story.language}
+        duration={story.duration}
+        node_id={story.node_id}
+        body_length={len(story.story_description or '')}
+        """
+    )
 
     themes = get_docnames(cfg["theme_doctype"], "source_id", theme_ids)
     tags = get_docnames(cfg["tag_doctype"], "tag_id", tag_ids)
@@ -136,6 +169,8 @@ def create_story(row):
         })
 
     story.insert(ignore_permissions=True)
+
+    logger.info(f"Created story: {story.name}")
 
     return {
         "status": "created",
@@ -156,24 +191,34 @@ def import_all_story_csv():
     failed = []
     story_node_map = []
 
+    logger.info(f"Starting import: {csv_path}")
+
     with open(csv_path, newline="", encoding="utf-8") as f:
+
         reader = csv.DictReader(f)
 
+        logger.info(f"CSV headers: {reader.fieldnames}")
+
         for row in reader:
+
             try:
+
                 result = create_story(row)
+
+                story_node_map.append({
+                    "story_name": result["story"],
+                    "node_id": row.get("nid")
+                })
 
                 if result["status"] == "created":
                     created.append(result["story"])
-
-                    story_node_map.append({
-                        "story_name": result["story"],
-                        "node_id": row.get("nid")
-                    })
                 else:
                     skipped.append(result)
 
-            except Exception:
+            except Exception as e:
+
+                logger.error(f"Failed row: {row.get('title')}")
+
                 failed.append({
                     "title": row.get("title"),
                     "error": frappe.get_traceback()
@@ -184,6 +229,7 @@ def import_all_story_csv():
     )
 
     with open(mapping_file, "w", newline="", encoding="utf-8") as f:
+
         writer = csv.DictWriter(
             f,
             fieldnames=["story_name", "node_id"]
@@ -191,6 +237,8 @@ def import_all_story_csv():
 
         writer.writeheader()
         writer.writerows(story_node_map)
+
+    logger.info(f"Mapping file created: {mapping_file}")
 
     return {
         "created": len(created),
