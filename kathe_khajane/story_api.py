@@ -145,7 +145,7 @@ def create_story(row):
 
 @frappe.whitelist()
 def debug_one_story():
-    csv_path = frappe.get_site_path("private", "files", "stories(2).csv")
+    csv_path = frappe.get_site_path("private", "stories(2).csv")
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         row = next(reader)  # just the first row
@@ -153,10 +153,11 @@ def debug_one_story():
         result = create_story(row)
         frappe.db.commit()
         return result
-        
+
+@frappe.whitelist()        
 def import_all_story_csv():
 
-    csv_path = frappe.get_site_path("private", "files", "stories(2).csv")
+    csv_path = frappe.get_site_path("private", "stories(2).csv")
 
     if not os.path.exists(csv_path):
         frappe.throw("stories.csv not found in private/files")
@@ -196,7 +197,7 @@ def import_all_story_csv():
                 })
 
     mapping_file = frappe.get_site_path(
-        "private", "files", "stories_mapping.csv"
+        "private", "stories_mapping.csv"
     )
 
     with open(mapping_file, "w", newline="", encoding="utf-8") as f:
