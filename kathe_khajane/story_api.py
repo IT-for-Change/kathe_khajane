@@ -84,17 +84,22 @@ def parse_duration(value):
 
 def create_story(row):
 
-    # DEBUG incoming row
-    frappe.log_error(str(list(row.keys())), "ROW KEYS")
+    frappe.log_error(
+        message=str(list(row.keys())),
+        title="ROW KEYS"
+    )
 
-    frappe.log_error(str({
-        "title": row.get("title"),
-        "language": row.get("field_language"),
-        "duration": row.get("field_duration"),
-        "themes": row.get("field_theme_s_"),
-        "tags": row.get("field_tag_s_"),
-        "body": row.get("body")
-    }), "CREATE STORY INPUT")
+    frappe.log_error(
+        message=str({
+            "title": row.get("title"),
+            "language": row.get("field_language"),
+            "duration": row.get("field_duration"),
+            "themes": row.get("field_theme_s_"),
+            "tags": row.get("field_tag_s_"),
+            "body": row.get("body")
+        }),
+        title="CREATE STORY INPUT"
+    )
 
     title = row.get("title")
 
@@ -119,10 +124,13 @@ def create_story(row):
     theme_ids = split_csv(row.get("field_theme_s_"))
     tag_ids = split_csv(row.get("field_tag_s_"))
 
-    frappe.log_error(str({
-        "theme_ids": theme_ids,
-        "tag_ids": tag_ids
-    }), "PARSED IDS")
+    frappe.log_error(
+        message=str({
+            "theme_ids": theme_ids,
+            "tag_ids": tag_ids
+        }),
+        title="PARSED IDS"
+    )
 
     story = frappe.new_doc("Story")
 
@@ -144,17 +152,18 @@ def create_story(row):
     story.popular_story = cint(row.get("field_popular_story") == "Y")
     story.is_this_story_validated_by_dsert = cint(row.get("field_dsert_validated") == "On")
 
-    # node_id
     story.node_id = row.get("nid")
 
-    # Themes and Tags
     themes = get_docnames(cfg["theme_doctype"], "source_id", theme_ids)
     tags = get_docnames(cfg["tag_doctype"], "tag_id", tag_ids)
 
-    frappe.log_error(str({
-        "themes_found": themes,
-        "tags_found": tags
-    }), "DB LOOKUPS")
+    frappe.log_error(
+        message=str({
+            "themes_found": themes,
+            "tags_found": tags
+        }),
+        title="DB LOOKUPS"
+    )
 
     for theme in themes:
         story.append(cfg["theme_child"], {"linked_theme": theme})
@@ -162,20 +171,26 @@ def create_story(row):
     for tag in tags:
         story.append(cfg["tag_child"], {"linked_tag": tag})
 
-    frappe.log_error(str({
-        "title": story.title,
-        "language": story.language,
-        "duration": story.duration,
-        "description_present": bool(story.story_description),
-        "themes_count": len(themes),
-        "tags_count": len(tags)
-    }), "STORY BEFORE INSERT")
+    frappe.log_error(
+        message=str({
+            "title": story.title,
+            "language": story.language,
+            "duration": story.duration,
+            "description_present": bool(story.story_description),
+            "themes_count": len(themes),
+            "tags_count": len(tags)
+        }),
+        title="STORY BEFORE INSERT"
+    )
 
     story.insert(ignore_permissions=True)
 
     frappe.db.commit()
 
-    frappe.log_error(story.name, "STORY CREATED")
+    frappe.log_error(
+        message=story.name,
+        title="STORY CREATED"
+    )
 
     return {
         "status": "created",
@@ -188,7 +203,10 @@ def import_all_story_csv():
 
     csv_path = frappe.get_site_path("private", "files", "stories.csv")
 
-    frappe.log_error(csv_path, "CSV FILE PATH")
+    frappe.log_error(
+        message=csv_path,
+        title="CSV FILE PATH"
+    )
 
     if not os.path.exists(csv_path):
         frappe.throw("stories.csv not found in private/files")
@@ -202,12 +220,18 @@ def import_all_story_csv():
 
         reader = csv.DictReader(f)
 
-        frappe.log_error(str(reader.fieldnames), "CSV HEADERS")
+        frappe.log_error(
+            message="\n".join(reader.fieldnames),
+            title="CSV HEADERS"
+        )
 
         for i, row in enumerate(reader):
 
             if i < 3:
-                frappe.log_error(str(row), f"CSV ROW SAMPLE {i}")
+                frappe.log_error(
+                    message=str(row),
+                    title=f"CSV ROW SAMPLE {i}"
+                )
 
             try:
 
