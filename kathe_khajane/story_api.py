@@ -53,6 +53,7 @@ def split_csv(value):
         return []
     return [v.strip() for v in str(value).split(",") if v.strip()]
 
+
 def get_docnames(doctype, id_field, ids):
 
     if not ids:
@@ -64,8 +65,10 @@ def get_docnames(doctype, id_field, ids):
         pluck="name"
     )
 
+
 def story_exists(title):
     return frappe.db.exists("Story", {"title": title})
+
 
 def parse_duration(value):
 
@@ -81,7 +84,20 @@ def parse_duration(value):
 
 def create_story(row):
 
+    # DEBUG incoming row
+    frappe.log_error(str(list(row.keys())), "ROW KEYS")
+
+    frappe.log_error(str({
+        "title": row.get("title"),
+        "language": row.get("field_language"),
+        "duration": row.get("field_duration"),
+        "themes": row.get("field_theme_s_"),
+        "tags": row.get("field_tag_s_"),
+        "body": row.get("body")
+    }), "CREATE STORY INPUT")
+
     title = row.get("title")
+
     if not title:
         frappe.throw("Title missing")
 
@@ -94,12 +110,19 @@ def create_story(row):
         }
 
     language = row.get("field_language")
+
     cfg = LANGUAGE_CONFIG.get(language)
+
     if not cfg:
         frappe.throw(f"Unsupported language: {language}")
 
     theme_ids = split_csv(row.get("field_theme_s_"))
     tag_ids = split_csv(row.get("field_tag_s_"))
+
+    frappe.log_error(str({
+        "theme_ids": theme_ids,
+        "tag_ids": tag_ids
+    }), "PARSED IDS")
 
     story = frappe.new_doc("Story")
 
@@ -124,9 +147,14 @@ def create_story(row):
     # node_id
     story.node_id = row.get("nid")
 
-    # Themes and Tags (child tables)
+    # Themes and Tags
     themes = get_docnames(cfg["theme_doctype"], "source_id", theme_ids)
     tags = get_docnames(cfg["tag_doctype"], "tag_id", tag_ids)
+
+    frappe.log_error(str({
+        "themes_found": themes,
+        "tags_found": tags
+    }), "DB LOOKUPS")
 
     for theme in themes:
         story.append(cfg["theme_child"], {"linked_theme": theme})
@@ -134,8 +162,20 @@ def create_story(row):
     for tag in tags:
         story.append(cfg["tag_child"], {"linked_tag": tag})
 
+    frappe.log_error(str({
+        "title": story.title,
+        "language": story.language,
+        "duration": story.duration,
+        "description_present": bool(story.story_description),
+        "themes_count": len(themes),
+        "tags_count": len(tags)
+    }), "STORY BEFORE INSERT")
+
     story.insert(ignore_permissions=True)
-    frappe.db.commit()  # ← commit each story immediately
+
+    frappe.db.commit()
+
+    frappe.log_error(story.name, "STORY CREATED")
 
     return {
         "status": "created",
@@ -143,10 +183,12 @@ def create_story(row):
     }
 
 
-@frappe.whitelist()        
+@frappe.whitelist()
 def import_all_story_csv():
 
     csv_path = frappe.get_site_path("private", "files", "stories.csv")
+
+    frappe.log_error(csv_path, "CSV FILE PATH")
 
     if not os.path.exists(csv_path):
         frappe.throw("stories.csv not found in private/files")
@@ -160,7 +202,12 @@ def import_all_story_csv():
 
         reader = csv.DictReader(f)
 
-        for row in reader:
+        frappe.log_error(str(reader.fieldnames), "CSV HEADERS")
+
+        for i, row in enumerate(reader):
+
+            if i < 3:
+                frappe.log_error(str(row), f"CSV ROW SAMPLE {i}")
 
             try:
 
