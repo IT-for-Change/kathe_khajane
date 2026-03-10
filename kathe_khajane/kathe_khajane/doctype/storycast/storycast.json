@@ -9,7 +9,6 @@
  "field_order": [
   "title",
   "authors",
-  "collaborators",
   "description",
   "language",
   "publisher",
@@ -21,12 +20,6 @@
    "fieldname": "authors",
    "fieldtype": "Data",
    "label": "Author(s)"
-  },
-  {
-   "fieldname": "collaborators",
-   "fieldtype": "Select",
-   "label": "Collaborator(s)",
-   "options": "British Telecom\nCognizant Outreach\nDSERT\nKITE"
   },
   {
    "fieldname": "description",
@@ -66,7 +59,7 @@
  "image_field": "thumbnail_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-10 14:19:58.119114",
+ "modified": "2026-03-10 16:01:44.199010",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Storycast",
