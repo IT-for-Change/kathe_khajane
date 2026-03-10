@@ -16,6 +16,9 @@ LABEL_ACTIVITY = {
     "Kannada": 'ಕಥೆಯ ಚಟುವಟಿಕೆ ಪುಟಕ್ಕೆ <a href="{url}">ಇಲ್ಲಿ ಕ್ಲಿಕ್ಕಿಸಿ</a>',
     "Marathi": 'स्टोरी अ‍ॅक्टिव्हिटी पेजसाठी <a href="{url}">येथे क्लिक करा</a>',
     "Urdu": '<a href="{url}">سرگرمی صفحہ</a>',
+    "Hindi": '<a href="{url}">गतिविधि पृष्ठ</a>',
+    "Telugu": '<a href="{url}">కథ కార్యకలాప పేజీ</a>',
+    "Tamil": '<a href="{url}">செயல்பாட்டு பக்கம்</a>',
 }
 
 LABEL_TAGS = {
@@ -23,6 +26,9 @@ LABEL_TAGS = {
     "Kannada": "ಗುರುತು ಪಟ್ಟಿ",
     "Marathi": "टॅग्ज",
     "Urdu": "ٹیگ",
+    "Hindi": "TAG",
+    "Telugu": "Tag(s)",
+    "Tamil": "குறிச்சொற்கள்",
 }
 
 LABEL_THEMES = {
@@ -30,6 +36,9 @@ LABEL_THEMES = {
     "Kannada": "ಕಥಾವಸ್ತು",
     "Marathi": "थीम",
     "Urdu": "موضوع",
+    "Hindi": "THEME",
+    "Telugu": "Theme(s)",
+    "Tamil": "வகைகள்",
 }
 
 
@@ -40,6 +49,9 @@ THEME_CHILD = {
     "Kannada": "Kn_theme_child",
     "Marathi": "Mr_theme_child",
     "Urdu": "Ur_theme_child",
+    "Hindi": "Hi_theme_child",
+    "Telugu": "Te_theme_child",
+    "Tamil": "Ta_theme_child",
 }
 
 THEME_DOCTYPE = {
@@ -47,6 +59,9 @@ THEME_DOCTYPE = {
     "Kannada": "Kannada themes",
     "Marathi": "Marathi themes",
     "Urdu": "Urdu themes",
+    "Hindi": "Hindi themes",
+    "Telugu": "Telugu themes",
+    "Tamil": "Tamil themes",
 }
 
 
@@ -57,6 +72,9 @@ TAG_CHILD = {
     "Kannada": "Kn_tag_child",
     "Marathi": "Mr_tag_child",
     "Urdu": "Ur_tag_child",
+    "Hindi": "Hi_tag_child",
+    "Telugu": "Te_tag_child",
+    "Tamil": "Ta_tag_child",
 }
 
 TAG_DOCTYPE = {
@@ -64,6 +82,9 @@ TAG_DOCTYPE = {
     "Kannada": "Kannada tags",
     "Marathi": "Marathi tags",
     "Urdu": "Urdu tags",
+    "Hindi": "Hindi tags",
+    "Telugu": "Telugu tags",
+    "Tamil": "Tamil tags",
 }
 
 
@@ -179,7 +200,6 @@ def get_story_tags(story_name, language):
 def generate(docname):
 
     storycast = frappe.get_doc("Storycast", docname)
-
     config = frappe.get_single("Podcast Config")
 
     BASE_URL = safe(config.base_url).rstrip("/")
@@ -199,7 +219,6 @@ def generate(docname):
 
         lang = safe(story.language) or language
 
-
         themes_list = get_story_themes(story.name, lang)
         tags_list = get_story_tags(story.name, lang)
 
@@ -209,9 +228,7 @@ def generate(docname):
         lbl_themes = LABEL_THEMES.get(lang, "Themes")
         lbl_tags = LABEL_TAGS.get(lang, "Tags")
 
-
         story_text = clean_html(safe(story.story_description))
-
 
         activity_url = safe(getattr(story, "more_resources", "")) or ""
 
@@ -222,9 +239,7 @@ def generate(docname):
             flags=re.DOTALL
         ).strip()
 
-
         activity_link_html = build_activity_link(lang, activity_url)
-
 
         description_parts = [story_text]
 
@@ -245,18 +260,13 @@ def generate(docname):
         if lang in RTL_LANGS:
             description_html = f'<div dir="rtl">{description_html}</div>'
 
-
         audio_url = ""
-
         if story.story_audio:
             audio_url = BASE_URL + quote(story.story_audio)
 
-
         image_url = ""
-
         if story.thumbnail_image:
             image_url = BASE_URL + quote(story.thumbnail_image)
-
 
         pub_date_raw = getattr(story, "pub_date", None) or story.creation
 
@@ -265,9 +275,7 @@ def generate(docname):
         else:
             pub_date = str(pub_date_raw)
 
-
         duration_str = format_duration(getattr(story, "duration", 0))
-
 
         items_xml += f"""
 <item>
@@ -280,7 +288,6 @@ def generate(docname):
 </item>
 """
 
-
     channel_title = safe(getattr(storycast, "title", "")) or safe(storycast.name)
 
     channel_desc = clean_html(safe(storycast.description))
@@ -288,19 +295,15 @@ def generate(docname):
     if language in RTL_LANGS:
         channel_desc = f'<div dir="rtl">{channel_desc}</div>'
 
-
     channel_image = ""
-
     if storycast.thumbnail_image:
         channel_image = BASE_URL + quote(storycast.thumbnail_image)
 
-
     storycast_id = safe(getattr(storycast, "podcast_id", "")) or safe(storycast.name)
 
-    copyright_txt = safe(getattr(storycast, "copyright_text", "")) or "CC BY-NC-ND 4.0"
+    copyright_txt = safe(getattr(config, "copyright_text", "")) or "CC BY-NC-ND 4.0"
 
     itunes_author = safe(getattr(storycast, "itunes_author", "")) or "Kathe Khajane Team"
-
 
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 

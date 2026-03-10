@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "website_link",
-  "base_url"
+  "base_url",
+  "copyright_text"
  ],
  "fields": [
   {
@@ -18,13 +19,18 @@
    "fieldname": "base_url",
    "fieldtype": "Data",
    "label": "Base_url"
+  },
+  {
+   "fieldname": "copyright_text",
+   "fieldtype": "Data",
+   "label": "copyright_text"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-03-10 14:20:26.699937",
+ "modified": "2026-03-10 16:56:29.767799",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Podcast Config",

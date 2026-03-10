@@ -30,7 +30,7 @@
    "fieldname": "language",
    "fieldtype": "Select",
    "label": "Language",
-   "options": "English\nKannada\nMarathi\nUrdu"
+   "options": "English\nKannada\nMarathi\nUrdu\nTamil\nTelugu\nHindi"
   },
   {
    "fieldname": "publisher",
@@ -59,7 +59,7 @@
  "image_field": "thumbnail_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-10 16:01:44.199010",
+ "modified": "2026-03-10 16:50:08.604995",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Storycast",
