@@ -4,76 +4,71 @@ from datetime import datetime
 from xml.sax.saxutils import escape
 from werkzeug.wrappers import Response
 import re
+from urllib.parse import quote
 
 
-BASE_URL = "https://kathe-khajane.teacher-network.in"
 RTL_LANGS = ["Urdu"]
 
-CHANNEL_TITLE = {
-    "English": "Kathe Khajane - English",
-    "Kannada": "ಕಥೆ ಖಜಾನೆ - ಕನ್ನಡ",
-    "Marathi": "कथा खजाना - मराठी",
-    "Urdu":    "کتھا خزانہ - اردو",
+
+# ---------------- LABEL DICTIONARIES ---------------- #
+
+LABEL_ACTIVITY = {
+    "English": '<a href="{url}">Click here</a> for story activity page',
+    "Kannada": 'ಕಥೆಯ ಚಟುವಟಿಕೆ ಪುಟಕ್ಕೆ <a href="{url}">ಇಲ್ಲಿ ಕ್ಲಿಕ್ಕಿಸಿ</a>',
+    "Marathi": 'स्टोरी अ‍ॅक्टिव्हिटी पेजसाठी <a href="{url}">येथे क्लिक करा</a>',
+    "Urdu": '<a href="{url}">سرگرمی صفحہ</a>',
 }
+
+LABEL_TAGS = {
+    "English": "Tag(s)",
+    "Kannada": "ಗುರುತು ಪಟ್ಟಿ",
+    "Marathi": "टॅग्ज",
+    "Urdu": "ٹیگ",
+}
+
+LABEL_THEMES = {
+    "English": "Theme(s)",
+    "Kannada": "ಕಥಾವಸ್ತು",
+    "Marathi": "थीम",
+    "Urdu": "موضوع",
+}
+
+
+# ---------------- THEME TABLES ---------------- #
 
 THEME_CHILD = {
     "English": "En_theme_child",
     "Kannada": "Kn_theme_child",
     "Marathi": "Mr_theme_child",
-    "Urdu":    "Ur_theme_child",
+    "Urdu": "Ur_theme_child",
 }
 
 THEME_DOCTYPE = {
     "English": "English themes",
     "Kannada": "Kannada themes",
     "Marathi": "Marathi themes",
-    "Urdu":    "Urdu themes",
+    "Urdu": "Urdu themes",
 }
+
+
+# ---------------- TAG TABLES ---------------- #
 
 TAG_CHILD = {
     "English": "En_tag_child",
     "Kannada": "Kn_tag_child",
     "Marathi": "Mr_tag_child",
-    "Urdu":    "Ur_tag_child",
+    "Urdu": "Ur_tag_child",
 }
 
 TAG_DOCTYPE = {
     "English": "English tags",
     "Kannada": "Kannada tags",
     "Marathi": "Marathi tags",
-    "Urdu":    "Urdu tags",
-}
-
-LABEL_THEMES = {
-    "English": "Themes",
-    "Kannada": "ಕಥಾವಸ್ತು",
-    "Marathi": "विषय",
-    "Urdu":    "موضوعات",
-}
-
-LABEL_TAGS = {
-    "English": "Tags",
-    "Kannada": "ಗುರುತು ಪಟ್ಟಿ",
-    "Marathi": "टॅग्स",
-    "Urdu":    "ٹیگز",
-}
-
-LABEL_SUITABLE = {
-    "English": "Suitable for",
-    "Kannada": "ಇವರಿಗೆ ಸೂಕ್ತ",
-    "Marathi": "यासाठी योग्य",
-    "Urdu":    "مناسب برائے",
-}
-
-LABEL_ACTIVITY = {
-    "English": "Click here for story activity page",
-    "Kannada": "ಕಥೆಯ ಚಟುವಟಿಕೆ ಪುಟಕ್ಕೆ <a href=\"{url}\">ಇಲ್ಲಿ ಕ್ಲಿಕ್ಕಿಸಿ</a>",
-    "Marathi": "कथा क्रियाकलाप पृष्ठासाठी <a href=\"{url}\">येथे क्लिक करा</a>",
-    "Urdu":    '<a href="{url}">کہانی سرگرمی صفحہ</a>',
+    "Urdu": "Urdu tags",
 }
 
 
-# HELPERS
+# ---------------- HELPERS ---------------- #
 
 def safe(val):
     return val or ""
@@ -82,19 +77,24 @@ def safe(val):
 def clean_html(html):
     if not html:
         return ""
+
     html = re.sub(r'\r', '', html)
-    html = re.sub(r'<div[^>]*class="[^"]*ql-editor[^"]*"[^>]*>(.*?)</div>',
-                  r'\1', html, flags=re.DOTALL)
+
+    html = re.sub(
+        r'<div[^>]*class="[^"]*ql-editor[^"]*"[^>]*>(.*?)</div>',
+        r'\1',
+        html,
+        flags=re.DOTALL
+    )
+
     return html.strip()
 
 
 def format_duration(seconds):
-    """
-    Frappe stores duration as total seconds (integer).
-    Convert to MM:SS string.
-    """
+
     if not seconds:
         return "00:00"
+
     try:
         total = int(float(str(seconds)))
         mins = total // 60
@@ -105,62 +105,86 @@ def format_duration(seconds):
 
 
 def build_activity_link(language, url):
-    """Return the localized activity link HTML."""
+
     template = LABEL_ACTIVITY.get(language, LABEL_ACTIVITY["English"])
+
     if "{url}" in template:
         return template.format(url=url or "")
+
     return f'<a href="{url or ""}">Story activity page</a>'
 
 
-# THEMES
+# ---------------- FETCH THEMES ---------------- #
 
 def get_story_themes(story_name, language):
+
     child_table = THEME_CHILD.get(language)
     theme_doctype = THEME_DOCTYPE.get(language)
+
     if not child_table:
         return []
-    rows = frappe.get_all(child_table,
+
+    rows = frappe.get_all(
+        child_table,
         filters={"parent": story_name},
         fields=["linked_theme"]
     )
+
     names = [r.linked_theme for r in rows if r.linked_theme]
+
     if not names:
         return []
-    themes = frappe.get_all(theme_doctype,
+
+    themes = frappe.get_all(
+        theme_doctype,
         filters={"name": ["in", names]},
         fields=["theme"]
     )
+
     return [t.theme for t in themes]
 
-# TAGS
+
+# ---------------- FETCH TAGS ---------------- #
 
 def get_story_tags(story_name, language):
+
     child_table = TAG_CHILD.get(language)
     tag_doctype = TAG_DOCTYPE.get(language)
+
     if not child_table:
         return []
-    rows = frappe.get_all(child_table,
+
+    rows = frappe.get_all(
+        child_table,
         filters={"parent": story_name},
         fields=["linked_tag"]
     )
+
     names = [r.linked_tag for r in rows if r.linked_tag]
+
     if not names:
         return []
-    tags = frappe.get_all(tag_doctype,
+
+    tags = frappe.get_all(
+        tag_doctype,
         filters={"name": ["in", names]},
         fields=["tag"]
     )
+
     return [t.tag for t in tags]
 
-# PODCAST FEED
+
+# ---------------- RSS FEED ---------------- #
 
 @frappe.whitelist(allow_guest=True)
 def generate(docname):
 
     storycast = frappe.get_doc("Storycast", docname)
+
     language = safe(storycast.language) or "Kannada"
 
     items_xml = ""
+
 
     for row in storycast.story:
 
@@ -168,38 +192,46 @@ def generate(docname):
             continue
 
         story = frappe.get_doc("Story", row.linked_story)
+
         lang = safe(story.language) or language
 
+
         themes_list = get_story_themes(story.name, lang)
-        tags_list   = get_story_tags(story.name, lang)
-        themes_str  = ", ".join(themes_list)
-        tags_str    = ", ".join(tags_list)
+        tags_list = get_story_tags(story.name, lang)
 
-        lbl_themes   = LABEL_THEMES.get(lang, "Themes")
-        lbl_tags     = LABEL_TAGS.get(lang, "Tags")
-        lbl_suitable = LABEL_SUITABLE.get(lang, "Suitable for")
+        themes_str = ", ".join(themes_list)
+        tags_str = ", ".join(tags_list)
 
-        suitable_for = safe(getattr(story, "suitable_for", "")) or safe(getattr(story, "level", ""))
+        lbl_themes = LABEL_THEMES.get(lang, "Themes")
+        lbl_tags = LABEL_TAGS.get(lang, "Tags")
+
 
         story_text = clean_html(safe(story.story_description))
 
+
         activity_url = safe(getattr(story, "more_resources", "")) or ""
 
-        activity_url = re.sub(r'<a[^>]*href=["\']([^"\']*)["\'][^>]*>.*?</a>', r'\1',
-                               activity_url, flags=re.DOTALL).strip()
+        activity_url = re.sub(
+            r'<a[^>]*href=["\']([^"\']*)["\'][^>]*>.*?</a>',
+            r'\1',
+            activity_url,
+            flags=re.DOTALL
+        ).strip()
 
         activity_link_html = build_activity_link(lang, activity_url)
 
+
         description_parts = [story_text]
 
-        if suitable_for:
-            description_parts.append(f"<br><strong>{lbl_suitable}</strong>: {suitable_for}")
-
         if themes_str:
-            description_parts.append(f"<br><strong>{lbl_themes}</strong>: {themes_str}")
+            description_parts.append(
+                f"<br><strong>{lbl_themes}</strong>: {themes_str}"
+            )
 
         if tags_str:
-            description_parts.append(f"<br><strong>{lbl_tags}</strong>: {tags_str}")
+            description_parts.append(
+                f"<br><strong>{lbl_tags}</strong>: {tags_str}"
+            )
 
         description_parts.append(f"<br>{activity_link_html}")
 
@@ -208,21 +240,34 @@ def generate(docname):
         if lang in RTL_LANGS:
             description_html = f'<div dir="rtl">{description_html}</div>'
 
-        audio_url = get_url(story.story_audio) if story.story_audio else ""
-        image_url = get_url(story.thumbnail_image) if story.thumbnail_image else ""
+
+        audio_url = ""
+
+        if story.story_audio:
+            audio_url = quote(get_url(story.story_audio), safe=':/')
+
+
+        image_url = ""
+
+        if story.thumbnail_image:
+            image_url = quote(get_url(story.thumbnail_image), safe=':/')
+
 
         pub_date_raw = getattr(story, "pub_date", None) or story.creation
+
         if hasattr(pub_date_raw, "strftime"):
             pub_date = pub_date_raw.strftime("%Y-%m-%dT%H:%M:%S")
         else:
             pub_date = str(pub_date_raw)
 
+
         duration_str = format_duration(getattr(story, "duration", 0))
+
 
         items_xml += f"""
 <item>
 <title>{escape(safe(story.title))}</title>
-<enclosure url="{audio_url}"/>
+<enclosure url="{audio_url}" type="audio/mpeg"/>
 <pubDate>{pub_date}</pubDate>
 <description><![CDATA[{clean_html(description_html)}]]></description>
 <itunes:image href="{image_url}"/>
@@ -230,31 +275,52 @@ def generate(docname):
 </item>
 """
 
-    channel_title = CHANNEL_TITLE.get(language, f"Kathe Khajane - {language}")
-    channel_desc  = clean_html(safe(storycast.description))
+
+    channel_title = safe(getattr(storycast, "title", "")) or safe(storycast.name)
+
+    channel_desc = clean_html(safe(storycast.description))
+
     if language in RTL_LANGS:
         channel_desc = f'<div dir="rtl">{channel_desc}</div>'
 
-    channel_image = get_url(storycast.thumbnail_image) if storycast.thumbnail_image else ""
-    storycast_id  = safe(getattr(storycast, "podcast_id", "")) or safe(str(storycast.name))
+
+    website_link = safe(getattr(storycast, "website_link", ""))
+
+
+    channel_image = ""
+
+    if storycast.thumbnail_image:
+        channel_image = quote(get_url(storycast.thumbnail_image), safe=':/')
+
+
+    storycast_id = safe(getattr(storycast, "podcast_id", "")) or safe(storycast.name)
+
     copyright_txt = safe(getattr(storycast, "copyright_text", "")) or "CC BY-NC-ND 4.0"
-    ttl           = safe(getattr(storycast, "ttl", "")) or "60"
-    itunes_author = safe(getattr(storycast, "itunes_author", "")) or "Kathe Khajane Team, IT for Change"
+
+    itunes_author = safe(getattr(storycast, "itunes_author", "")) or "Kathe Khajane Team"
+
 
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+
 <rss version="2.0"
  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
 
 <channel>
+
 <title>{escape(channel_title)}</title>
-<link>{BASE_URL}</link>
+
+<link>{website_link}</link>
+
 <description><![CDATA[{channel_desc}]]></description>
+
 <copyright>{escape(copyright_txt)}</copyright>
+
 <itunes:author>{escape(itunes_author)}</itunes:author>
-<itunes:explicit>false</itunes:explicit>
+
 <itunes:image href="{channel_image}"/>
+
 <lastBuildDate>{datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")}</lastBuildDate>
-<ttl>{ttl}</ttl>
+
 <id>{storycast_id}</id>
 
 {items_xml}
