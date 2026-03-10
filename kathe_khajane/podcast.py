@@ -1,5 +1,4 @@
 import frappe
-from frappe.utils import get_url
 from datetime import datetime
 from xml.sax.saxutils import escape
 from werkzeug.wrappers import Response
@@ -174,12 +173,17 @@ def get_story_tags(story_name, language):
     return [t.tag for t in tags]
 
 
-# ---------------- RSS FEED ---------------- #
+# ---------------- RSS FEED GENERATOR ---------------- #
 
 @frappe.whitelist(allow_guest=True)
 def generate(docname):
 
     storycast = frappe.get_doc("Storycast", docname)
+
+    config = frappe.get_single("Podcast Config")
+
+    BASE_URL = safe(config.base_url).rstrip("/")
+    WEBSITE_LINK = safe(config.website_link)
 
     language = safe(storycast.language) or "Kannada"
 
@@ -218,6 +222,7 @@ def generate(docname):
             flags=re.DOTALL
         ).strip()
 
+
         activity_link_html = build_activity_link(lang, activity_url)
 
 
@@ -244,13 +249,13 @@ def generate(docname):
         audio_url = ""
 
         if story.story_audio:
-            audio_url = quote(get_url(story.story_audio), safe=':/')
+            audio_url = BASE_URL + quote(story.story_audio)
 
 
         image_url = ""
 
         if story.thumbnail_image:
-            image_url = quote(get_url(story.thumbnail_image), safe=':/')
+            image_url = BASE_URL + quote(story.thumbnail_image)
 
 
         pub_date_raw = getattr(story, "pub_date", None) or story.creation
@@ -284,13 +289,10 @@ def generate(docname):
         channel_desc = f'<div dir="rtl">{channel_desc}</div>'
 
 
-    website_link = safe(getattr(storycast, "website_link", ""))
-
-
     channel_image = ""
 
     if storycast.thumbnail_image:
-        channel_image = quote(get_url(storycast.thumbnail_image), safe=':/')
+        channel_image = BASE_URL + quote(storycast.thumbnail_image)
 
 
     storycast_id = safe(getattr(storycast, "podcast_id", "")) or safe(storycast.name)
@@ -309,7 +311,7 @@ def generate(docname):
 
 <title>{escape(channel_title)}</title>
 
-<link>{website_link}</link>
+<link>{WEBSITE_LINK}</link>
 
 <description><![CDATA[{channel_desc}]]></description>
 

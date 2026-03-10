@@ -14,7 +14,6 @@
   "language",
   "publisher",
   "thumbnail_image",
-  "website_link",
   "story"
  ],
  "fields": [
@@ -51,11 +50,6 @@
    "label": "Thumbnail image "
   },
   {
-   "fieldname": "website_link",
-   "fieldtype": "Text Editor",
-   "label": "Website link"
-  },
-  {
    "fieldname": "story",
    "fieldtype": "Table",
    "label": "Story",
@@ -72,7 +66,7 @@
  "image_field": "thumbnail_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-22 12:47:28.552503",
+ "modified": "2026-03-10 14:19:58.119114",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Storycast",
