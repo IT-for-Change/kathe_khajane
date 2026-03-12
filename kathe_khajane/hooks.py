@@ -29,15 +29,21 @@ fixtures = [
             ]]
         ]
     },
-    
+
     {
         "dt": "Help Page Content",
         "filters": [
             ["language_code", "in", ["en", "kn", "mr", "ur"]]
         ]
+    },
+
+    {
+        "dt": "Website Settings"
+    }, 
+
+    {
+        "dt": "Podcast help"
     }
-
-
 ]
 
 
