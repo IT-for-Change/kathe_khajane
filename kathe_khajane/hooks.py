@@ -28,6 +28,13 @@ fixtures = [
                 "Number of stories by duration"
             ]]
         ]
+    },
+    
+    {
+        "dt": "Help Page Content",
+        "filters": [
+            ["language_code", "in", ["en", "kn", "mr", "ur"]]
+        ]
     }
 
 
