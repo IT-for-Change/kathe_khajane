@@ -73,3 +73,4 @@ def get_context(context):
     )
     context.themes = themes
     context.lang_code = lang_code
+    context.no_cache = 1

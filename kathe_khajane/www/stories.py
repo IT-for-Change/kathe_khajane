@@ -110,3 +110,4 @@ def get_context(context):
     context.selected_duration = selected_duration
     context.combined_deep_link = combined_deep_link
     context.is_filtered       = is_filtered
+    context.no_cache = 1
