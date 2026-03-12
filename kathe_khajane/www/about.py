@@ -17,3 +17,4 @@ def get_context(context):
 
     context.doc = doc
     context.lang = lang
+    context.no_cache = 1

@@ -70,3 +70,4 @@ def get_context(context):
 
     context.main_links = [l for l in all_links if not l.is_community]
     context.doc = doc
+    context.no_cache = 1
