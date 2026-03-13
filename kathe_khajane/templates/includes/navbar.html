@@ -1,43 +1,36 @@
 <nav style="background:#141414;border-bottom:1px solid #2274f0;position:sticky;top:0;z-index:1030;width:100%;">
-  <div style="max-width:1140px;margin:0 auto;padding:0 1rem;">
+  <!-- Same container class + padding as the page content -->
+  <div class="container" style="padding-left:1rem;padding-right:1rem;">
 
+    <!-- ── DESKTOP (≥992px) ── -->
     <div id="kkNavDesktop"
-         style="display:flex;align-items:center;justify-content:space-between;height:54px;">
+         style="display:flex;align-items:center;justify-content:flex-end;height:54px;gap:0.25rem;">
       <a href="/home"
-         style="color:#fff;font-weight:700;font-size:1.05rem;text-decoration:none;">
-        Kathe Khajane
+         style="color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;text-decoration:none;border-radius:4px;font-size:0.95rem;line-height:1.5;">
+        {{ _("Home") }}
       </a>
-      <div style="display:flex;align-items:center;gap:0.25rem;">
-        <a href="/home"
-           style="color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;text-decoration:none;border-radius:4px;font-size:0.95rem;line-height:1.5;">
-          {{ _("Home") }}
-        </a>
-        <a href="/about?lang={{ lang or 'en' }}"
-           style="color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;text-decoration:none;border-radius:4px;font-size:0.95rem;line-height:1.5;">
-          {{ _("About") }}
-        </a>
-
-        <div style="position:relative;">
-          <button onclick="toggleDesktopHelp(event)"
-                  style="background:transparent;border:none;color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;border-radius:4px;font-size:0.95rem;cursor:pointer;display:flex;align-items:center;gap:0.35rem;line-height:1.5;">
-            {{ _("Help") }}
-            <i class="fas fa-chevron-down" style="font-size:0.65em;"></i>
-          </button>
-          <div id="desktopHelpMenu"
-               style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#1c1c1c;border:1px solid #333;border-radius:8px;min-width:130px;z-index:9999;padding:4px 0;">
-            <a href="/help?lang=en" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">English</a>
-            <a href="/help?lang=kn" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">ಕನ್ನಡ</a>
-            <a href="/help?lang=mr" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">मराठी</a>
-            <a href="/help?lang=ur" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">اُردُو</a>
-          </div>
+      <a href="/about?lang={{ lang or 'en' }}"
+         style="color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;text-decoration:none;border-radius:4px;font-size:0.95rem;line-height:1.5;">
+        {{ _("About") }}
+      </a>
+      <div style="position:relative;">
+        <button onclick="toggleDesktopHelp(event)"
+                style="background:transparent;border:none;color:rgba(255,255,255,0.88);padding:0.5rem 0.9rem;border-radius:4px;font-size:0.95rem;cursor:pointer;display:flex;align-items:center;gap:0.35rem;line-height:1.5;">
+          {{ _("Help") }}
+          <i class="fas fa-chevron-down" style="font-size:0.65em;"></i>
+        </button>
+        <div id="desktopHelpMenu"
+             style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#1c1c1c;border:1px solid #333;border-radius:8px;min-width:130px;z-index:9999;padding:4px 0;">
+          <a href="/help?lang=en" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">English</a>
+          <a href="/help?lang=kn" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">ಕನ್ನಡ</a>
+          <a href="/help?lang=mr" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">मराठी</a>
+          <a href="/help?lang=ur" style="display:block;color:rgba(255,255,255,0.85);padding:8px 16px;text-decoration:none;font-size:0.92rem;">اُردُو</a>
         </div>
       </div>
     </div>
 
-
-    <div id="kkNavMobile"
-         style="display:none;flex-direction:column;">
-      <!-- Top bar: hamburger only -->
+    <!-- ── MOBILE (<992px) ── -->
+    <div id="kkNavMobile" style="display:none;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:flex-end;height:50px;">
         <button onclick="toggleMobileMenu()"
                 style="background:transparent;border:1px solid rgba(255,255,255,0.3);border-radius:4px;padding:5px 9px;cursor:pointer;">
@@ -46,9 +39,7 @@
           <span style="display:block;width:20px;height:2px;background:#fff;margin:4px 0;border-radius:1px;"></span>
         </button>
       </div>
-      <!-- Collapsible menu -->
-      <div id="mobileMenu"
-           style="display:none;padding:0.25rem 0 0.75rem;border-top:1px solid #1e1e1e;">
+      <div id="mobileMenu" style="display:none;padding:0.25rem 0 0.75rem;border-top:1px solid #1e1e1e;">
         <a href="/home"
            style="display:block;color:rgba(255,255,255,0.88);padding:0.55rem 0.5rem;text-decoration:none;font-size:0.97rem;">
           {{ _("Home") }}
@@ -57,12 +48,10 @@
            style="display:block;color:rgba(255,255,255,0.88);padding:0.55rem 0.5rem;text-decoration:none;font-size:0.97rem;">
           {{ _("About") }}
         </a>
-        <!-- Help accordion -->
         <button onclick="toggleMobileHelp()"
                 style="background:transparent;border:none;color:rgba(255,255,255,0.88);padding:0.55rem 0.5rem;font-size:0.97rem;cursor:pointer;display:flex;align-items:center;gap:0.4rem;width:100%;text-align:left;">
           {{ _("Help") }}
-          <i id="mobileHelpChevron" class="fas fa-chevron-down"
-             style="font-size:0.65em;transition:transform 0.2s;"></i>
+          <i id="mobileHelpChevron" class="fas fa-chevron-down" style="font-size:0.65em;transition:transform 0.2s;"></i>
         </button>
         <div id="mobileHelpMenu"
              style="display:none;border-left:2px solid #2274f0;margin-left:10px;padding-left:12px;padding-bottom:4px;">
@@ -78,16 +67,14 @@
 </nav>
 
 <script>
-// Show correct navbar based on screen width — no Bootstrap needed
 function kkSetNavMode() {
-  var isDesktop = window.innerWidth >= 992;
-  document.getElementById('kkNavDesktop').style.display = isDesktop ? 'flex' : 'none';
-  document.getElementById('kkNavMobile').style.display  = isDesktop ? 'none' : 'flex';
+  var d = window.innerWidth >= 992;
+  document.getElementById('kkNavDesktop').style.display = d ? 'flex'  : 'none';
+  document.getElementById('kkNavMobile').style.display  = d ? 'none'  : 'flex';
 }
 kkSetNavMode();
 window.addEventListener('resize', kkSetNavMode);
 
-// Desktop Help dropdown
 function toggleDesktopHelp(e) {
   e.stopPropagation();
   var m = document.getElementById('desktopHelpMenu');
@@ -98,18 +85,15 @@ document.addEventListener('click', function() {
   if (m) m.style.display = 'none';
 });
 
-// Mobile hamburger
 function toggleMobileMenu() {
   var m = document.getElementById('mobileMenu');
   m.style.display = m.style.display === 'none' ? 'block' : 'none';
 }
-
-// Mobile Help accordion
 function toggleMobileHelp() {
-  var sub     = document.getElementById('mobileHelpMenu');
-  var chevron = document.getElementById('mobileHelpChevron');
-  var isOpen  = sub.style.display !== 'none';
-  sub.style.display       = isOpen ? 'none' : 'block';
-  chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+  var sub = document.getElementById('mobileHelpMenu');
+  var ch  = document.getElementById('mobileHelpChevron');
+  var open = sub.style.display !== 'none';
+  sub.style.display = open ? 'none' : 'block';
+  ch.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
 }
 </script>
