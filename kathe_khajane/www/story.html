@@ -1,51 +1,57 @@
 {% extends "kathe_khajane/templates/includes/web.html" %}
 {% block page_content %}
-<div class="kk-app container py-4 text-white story-page
-            {% if lang_code == 'ur' %}kk-rtl{% endif %}">
+<div class="kk-app text-white {% if lang_code == 'ur' %}kk-rtl{% endif %}"
+     style="background-color:#121212; min-height:100vh;">
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
 
-  <div class="mb-4">
-    <a href="/stories?lang={{ lang_code }}" class="back-link">
-      ← {{ _("Back to Stories") }}
-    </a>
+        <div class="mb-3">
+          <a href="/stories?lang={{ lang_code }}" class="back-link">
+            ← {{ _("Back to Stories") }}
+          </a>
+        </div>
+
+        <h1 class="story-title-main mb-3">{{ story.title }}</h1>
+
+        <div class="story-image-wrapper mb-4">
+          <img src="{{ story.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
+               alt="{{ story.title }}">
+        </div>
+
+        {% if themes %}
+        <div class="story-themes mb-3">
+          <strong>{{ _("Themes") }}:</strong>
+          {% for t in themes %}
+          <a href="/stories?lang={{ lang_code }}&theme={{ t }}" class="theme-badge">{{ t }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="story-description mb-4">
+          {{ story.story_description or "" }}
+        </div>
+
+        {% if story.more_resources %}
+        <div class="story-resources mb-4">
+          <strong>{{ _("More Resources") }}:</strong>
+          <div class="mt-2">{{ story.more_resources | safe }}</div>
+        </div>
+        {% endif %}
+
+        <div class="story-buttons mt-4">
+          {% if story.antenna_pod_url %}
+          <a href="{{ story.antenna_pod_url }}" class="btn btn-success" target="_blank">
+            <i class="fas fa-podcast"></i> {{ _("Open in AntennaPod") }}
+          </a>
+          {% endif %}
+          <a href="/stories?lang={{ lang_code }}" class="btn btn-secondary">
+            {{ _("Back to Stories") }}
+          </a>
+        </div>
+
+      </div>
+    </div>
   </div>
-
-  <h1 class="story-title-main mb-3">{{ story.title }}</h1>
-
-  <div class="story-image-wrapper mb-4">
-    <img src="{{ story.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
-         alt="{{ story.title }}">
-  </div>
-
-  {% if themes %}
-  <div class="story-themes mb-3">
-    <strong>{{ _("Themes") }}:</strong>
-    {% for t in themes %}
-    <a href="/stories?lang={{ lang_code }}&theme={{ t }}" class="theme-badge">{{ t }}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  <div class="story-description mb-4">
-    {{ story.story_description or "" }}
-  </div>
-
-  {% if story.more_resources %}
-  <div class="story-resources mb-4">
-    <strong>{{ _("More Resources") }}:</strong>
-    <div class="mt-2">{{ story.more_resources | safe }}</div>
-  </div>
-  {% endif %}
-
-  <div class="story-buttons mt-4 d-flex gap-2 flex-wrap">
-    {% if story.antenna_pod_url %}
-    <a href="{{ story.antenna_pod_url }}" class="btn btn-success" target="_blank">
-      <i class="fas fa-podcast"></i> {{ _("Open in AntennaPod") }}
-    </a>
-    {% endif %}
-    <a href="/stories?lang={{ lang_code }}" class="btn btn-secondary">
-      {{ _("Back to Stories") }}
-    </a>
-  </div>
-
 </div>
 {% endblock %}

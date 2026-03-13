@@ -1,23 +1,21 @@
 {% extends "kathe_khajane/templates/includes/web.html" %}
 {% block page_content %}
-<div class="kk-app container py-5 text-white">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-
-      <h1 class="mb-4" style="color: #2274f0; font-weight: 700;">
-        {{ doc.title }}
-      </h1>
-
-      <div class="about-body">
-        {{ doc.body | safe }}
+<div class="kk-app text-white" style="background:#121212;min-height:100vh;padding:2rem 0 3rem;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        <h1 style="color:#2274f0;font-weight:700;font-size:1.9rem;text-align:center;margin-bottom:1.75rem;">
+          {{ doc.title }}
+        </h1>
+        <div class="about-body">
+          {{ doc.body | safe }}
+        </div>
+        {% if doc.community_text %}
+        <div class="about-body mt-3">
+          {{ doc.community_text | safe }}
+        </div>
+        {% endif %}
       </div>
-
-      {% if doc.community_text %}
-      <div class="about-body mt-3">
-        {{ doc.community_text | safe }}
-      </div>
-      {% endif %}
-
     </div>
   </div>
 </div>

@@ -1,46 +1,129 @@
-
+/* ============================================================
+   FILTERS.CSS
+   ============================================================ */
 
 .filter-panel {
   background-color: #1a1a1a;
   color: #ffffff;
   border: 1px solid #333;
+  border-radius: 12px;
 }
-.filter-panel .modal-title  { color: #ffffff; font-weight: 600; }
-.filter-panel .modal-header { border-bottom: 1px solid #333; }
-.filter-panel .modal-footer { border-top:    1px solid #333; }
-.filter-panel .btn-close    { filter: invert(1); }
+.filter-panel .modal-title  { color: #ffffff; font-weight: 600; font-size: 1.1rem; }
+.filter-panel .modal-header {
+  border-bottom: 1px solid #333;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-panel .modal-footer { border-top: 1px solid #333; }
 
-/* h6 headings (Themes, Duration) — must be white */
+/* Close button — properly styled white X */
+.filter-panel .btn-close {
+  filter: none !important;
+  background-color: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background-size: 0.7em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293A1 1 0 01.293 13.707L6.586 8 .293 1.707a1 1 0 010-1.414z' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1;
+  flex-shrink: 0;
+}
+.filter-panel .btn-close:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Section headings */
 .filter-panel h6 {
   color: #ffffff !important;
   font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem !important;
 }
 .filter-panel hr {
   border-color: #333;
   opacity: 1;
 }
 
+/* Duration select */
 .filter-panel .form-select {
-  background-color: #333;
+  background-color: #2a2a2a;
   color: #ffffff;
-  border-color: #555;
+  border-color: #444;
+  border-radius: 8px;
 }
 .filter-panel .form-select:focus {
-  background-color: #444;
+  background-color: #333;
   border-color: #2274f0;
-  box-shadow: 0 0 0 0.25rem rgba(34, 116, 240, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(34, 116, 240, 0.25);
   color: #ffffff;
 }
 
-.filter-panel .form-label       { color: #ffffff; font-weight: 600; }
-.filter-panel .form-check-label { color: #ffffff; cursor: pointer; }
-.filter-panel .form-check-input { accent-color: #2274f0; cursor: pointer; }
-
+/* Theme list */
 .filter-list {
-  max-height: 260px;
+  max-height: 240px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #444 transparent;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+}
+.filter-list::-webkit-scrollbar { width: 4px; }
+.filter-list::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+
+/* Individual filter items (checkboxes) */
+.filter-item {
+  display: flex !important;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  margin-bottom: 2px;
+  transition: background 0.15s;
+}
+.filter-item:hover {
+  background: rgba(34, 116, 240, 0.12);
 }
 
-.filter-item                         { cursor: pointer; padding: 4px 0; }
-.filter-item span                    { margin-left: 8px; color: #ffffff; }
-.filter-item input[type="checkbox"]  { accent-color: #2274f0; }
+/* Checkbox styling */
+.filter-item input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #2274f0;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.filter-item span {
+  margin-left: 0.6rem;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+/* Checked state highlight */
+.filter-item:has(input:checked) {
+  background: rgba(34, 116, 240, 0.18);
+}
+.filter-item:has(input:checked) span {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Apply button */
+.filter-panel .modal-footer .btn-primary {
+  background-color: #2274f0;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.6rem;
+}
+.filter-panel .modal-footer .btn-primary:hover {
+  background-color: #0f5ed6;
+}

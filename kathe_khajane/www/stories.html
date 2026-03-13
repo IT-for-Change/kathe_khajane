@@ -1,85 +1,83 @@
 {% extends "kathe_khajane/templates/includes/web.html" %}
 {% block page_content %}
-<div class="kk-app container py-3 py-md-4 text-white {% if lang == 'ur' %}kk-rtl{% endif %}">
+<div class="kk-app {% if lang == 'ur' %}kk-rtl{% endif %}"
+     style="background:#121212; min-height:100vh; padding:0.75rem 0 2rem;">
+  <div class="container" style="padding-left:1rem; padding-right:1rem;">
 
-  {% if is_filtered %}
-  <!-- ===== FILTERED VIEW ===== -->
-  <h1 class="text-center mb-4">{{ _("Filtered Stories") }}</h1>
+    {% if is_filtered %}
+    <!-- FILTERED VIEW -->
+    <h1 class="text-center mb-3" style="color:#fff; font-weight:700;">{{ _("Filtered Stories") }}</h1>
 
-  <!-- Active filter badges -->
-  <div class="filter-badges d-flex flex-wrap gap-2 justify-content-center mb-4">
-    {% for t in selected_themes %}
-    <span class="badge bg-white text-black rounded-pill px-3 py-2">{{ t }}</span>
-    {% endfor %}
-    {% if selected_duration %}
-    <span class="badge bg-white text-black rounded-pill px-3 py-2">{{ selected_duration }}</span>
+    <div class="filter-badges d-flex flex-wrap gap-2 justify-content-center mb-3">
+      {% for t in selected_themes %}
+      <span class="badge rounded-pill" style="background:#2274f0;color:#fff;padding:0.35rem 1rem;">{{ t }}</span>
+      {% endfor %}
+      {% if selected_duration %}
+      <span class="badge rounded-pill" style="background:#2274f0;color:#fff;padding:0.35rem 1rem;">{{ selected_duration }}</span>
+      {% endif %}
+    </div>
+
+    <div class="bottom-buttons d-flex flex-wrap justify-content-center gap-2 mb-4">
+      {% if combined_deep_link %}
+      <a href="{{ combined_deep_link }}" class="btn btn-success" target="_blank">
+        <i class="fas fa-podcast me-1"></i>{{ _("Open All in AntennaPod") }}
+      </a>
+      {% endif %}
+      <a href="/stories?lang={{ lang }}" class="btn btn-dark">
+        <i class="fas fa-arrow-left me-1"></i>{{ _("Back to Stories") }}
+      </a>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <i class="fas fa-filter me-1"></i>{{ _("Filters") }}
+      </button>
+    </div>
+
+    {% else %}
+    <!-- NORMAL VIEW -->
+
+    {% if top_stories %}
+    <section style="margin-bottom:1.25rem;">
+      <h2 style="color:#fff;font-weight:700;font-size:1.3rem;margin-bottom:0.6rem;">{{ _("Popular Stories") }}</h2>
+      <div class="popular-scroll">
+        {% for s in top_stories %}
+        <a href="/story?name={{ s.name }}&lang={{ lang }}" class="popular-card">
+          <img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
+               alt="{{ s.title }}" title="{{ s.title }}">
+        </a>
+        {% endfor %}
+      </div>
+    </section>
     {% endif %}
-  </div>
 
-  <!-- Action buttons -->
-  <div class="bottom-buttons">
-    {% if combined_deep_link %}
-    <a href="{{ combined_deep_link }}" class="btn btn-success" target="_blank">
-      <i class="fas fa-podcast me-2"></i>{{ _("Open All in AntennaPod") }}
-    </a>
+    <div class="stories-header">
+      <h1 style="color:#fff;font-weight:700;font-size:1.5rem;margin:0;">{{ _("All Stories") }}</h1>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal"
+              style="white-space:nowrap;display:inline-flex;align-items:center;gap:0.4rem;flex-shrink:0;">
+        <i class="fas fa-filter"></i>{{ _("Filters") }}
+      </button>
+    </div>
+
     {% endif %}
-    <a href="/stories?lang={{ lang }}" class="btn btn-dark">
-      <i class="fas fa-arrow-left me-2"></i>{{ _("Back to Stories") }}
-    </a>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
-      <i class="fas fa-filter me-2"></i>{{ _("Filters") }}
-    </button>
-  </div>
 
-  {% else %}
-  <!-- ===== NORMAL VIEW ===== -->
+    {% include "kathe_khajane/templates/includes/filter_modal.html" %}
 
-  <!-- Popular Stories -->
-  {% if top_stories %}
-  <section class="mb-5">
-    <h2 class="mb-4">{{ _("Popular Stories") }}</h2>
-    <div class="popular-scroll">
-      {% for s in top_stories %}
-      <a href="/story?name={{ s.name }}&lang={{ lang }}" class="popular-card">
+    <!-- Story list -->
+    <div style="width:100%;margin-top:0.5rem;">
+      {% for s in stories %}
+      <a href="/story?name={{ s.name }}&lang={{ lang }}" class="story-item">
         <img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
-             alt="{{ s.title }}" title="{{ s.title }}">
+             class="story-thumbnail" alt="{{ s.title }}">
+        <div class="story-info">
+          <div class="story-title">{{ s.title }}</div>
+          <div class="story-meta">{{ s.duration_min }} {{ _("min") }}</div>
+        </div>
       </a>
       {% endfor %}
+
+      {% if not stories %}
+      <p class="text-center mt-5" style="color:#666;">{{ _("No stories found for the selected filters.") }}</p>
+      {% endif %}
     </div>
-  </section>
-  {% endif %}
 
-  <!-- Stories header - FIXED ALIGNMENT -->
-  <div class="stories-header">
-    <h1 class="mb-0">{{ _("All Stories") }}</h1>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
-      <i class="fas fa-filter me-2"></i>{{ _("Filters") }}
-    </button>
   </div>
-
-  {% endif %}
-
-  {% include "kathe_khajane/templates/includes/filter_modal.html" %}
-
-  <!-- Stories list -->
-  <div class="list-container mt-4">
-    {% for s in stories %}
-    <a href="/story?name={{ s.name }}&lang={{ lang }}" class="story-item">
-      <img src="{{ s.thumbnail_image or '/assets/frappe/images/ui/no-image.svg' }}"
-           class="story-thumbnail" alt="{{ s.title }}">
-      <div class="story-info">
-        <div class="story-title">{{ s.title }}</div>
-        <div class="story-meta">
-          <span>{{ s.duration }} {{ _("min") }}</span>
-        </div>
-      </div>
-    </a>
-    {% endfor %}
-
-    {% if not stories %}
-    <p class="text-center text-muted mt-5">{{ _("No stories found for the selected filters.") }}</p>
-    {% endif %}
-  </div>
-
 </div>
 {% endblock %}

@@ -48,6 +48,11 @@ def build_dataset(language):
         linked      = story_theme_map.get(s.name, [])
         s["themes"] = [theme_lookup[t] for t in linked if theme_lookup.get(t)]
         all_themes.update(s["themes"])
+        # Convert duration from seconds to minutes for display
+        if s.get("duration"):
+            s["duration_min"] = round(float(s["duration"]) / 60)
+        else:
+            s["duration_min"] = 0
         if s.get("popular_story"):
             top_stories.append(s)
 
@@ -72,13 +77,17 @@ def get_context(context):
     language = LANG_MAP.get(lang, "English")
     frappe.local.lang = lang
 
-    raw_themes = frappe.form_dict.get("theme")
-    if not raw_themes:
-        selected_themes = []
-    elif isinstance(raw_themes, list):
-        selected_themes = raw_themes
-    else:
-        selected_themes = [raw_themes]
+    # frappe.form_dict flattens multi-value params; use werkzeug MultiDict directly
+    try:
+        selected_themes = list(frappe.request.args.getlist("theme"))
+    except Exception:
+        raw = frappe.form_dict.get("theme")
+        if not raw:
+            selected_themes = []
+        elif isinstance(raw, list):
+            selected_themes = raw
+        else:
+            selected_themes = [raw]
 
     selected_duration = frappe.form_dict.get("duration")
     is_filtered       = bool(selected_themes or selected_duration)
@@ -91,9 +100,9 @@ def get_context(context):
         if selected_themes and not all(t in themes for t in selected_themes):
             continue
         d = float(s.duration or 0)
-        if selected_duration == "short"  and d >= 3:            continue
-        if selected_duration == "medium" and not (3 <= d <= 5): continue
-        if selected_duration == "long"   and d <= 5:            continue
+        if selected_duration == "short"  and d >= 180:             continue
+        if selected_duration == "medium" and not (180 <= d <= 300): continue
+        if selected_duration == "long"   and d <= 300:             continue
         filtered.append(s)
 
     combined_query     = "+".join(quote(t) for t in selected_themes) if selected_themes else None

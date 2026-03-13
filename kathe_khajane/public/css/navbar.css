@@ -1,61 +1,93 @@
 /* ============================================================
    NAVBAR.CSS
    ============================================================ */
-
 .kk-navbar {
-  background-color: #141414;
-  border-bottom: 1px solid #0d6efd;
+  background-color: #141414 !important;
+  border-bottom: 1px solid #2274f0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 56px;
 }
 
-.kk-navbar .navbar-brand       { color: #ffffff; font-weight: 700; }
-.kk-navbar .navbar-brand:hover { color: #ffffff; }
-
-.kk-navbar .navbar-nav  { 
-  flex-wrap: wrap; 
-  margin-left: auto;
+/* Brand */
+.kk-navbar .navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
-.kk-navbar .nav-item    { margin-left: 10px; }
 
+/* All nav links — same padding so they align perfectly */
 .kk-navbar .nav-link {
-  color: rgba(255, 255, 255, 0.9);
-  position: relative;
-  transition: all 0.2s;
-  padding: 0.5rem 1rem;
+  color: rgba(255,255,255,0.88) !important;
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem !important;   /* uniform vertical padding */
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
 }
 .kk-navbar .nav-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-  border-radius: 4px;
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.08) !important;
 }
 
-.kk-navbar .navbar-toggler       { border-color: rgba(255, 255, 255, 0.3); }
-.kk-navbar .navbar-toggler:focus { box-shadow: none; }
+/* Dropdown toggle — must have same padding as other nav-links */
+.kk-navbar .dropdown-toggle {
+  padding: 0.6rem 0.9rem !important;
+}
+/* Remove the extra gap Bootstrap puts between text and caret */
+.kk-navbar .dropdown-toggle::after {
+  margin-left: 0.35em;
+  vertical-align: 0.15em;
+}
 
+/* Navbar items — vertical centering */
+.kk-navbar .navbar-nav {
+  align-items: center;
+}
+.kk-navbar .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Toggler */
+.kk-navbar .navbar-toggler       { border-color: rgba(255,255,255,0.3) !important; }
+.kk-navbar .navbar-toggler:focus { box-shadow: none !important; }
+
+/* Desktop dropdown */
 .kk-navbar .dropdown-menu {
-  background-color: #1c1c1c;
-  border: 1px solid #333;
+  background-color: #1c1c1c !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  min-width: 130px;
+  margin-top: 4px !important;
 }
 .kk-navbar .dropdown-item {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255,255,255,0.85) !important;
   padding: 8px 16px;
+  font-size: 0.92rem;
 }
 .kk-navbar .dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  background: rgba(255,255,255,0.08) !important;
+  color: #ffffff !important;
 }
 
+/* Mobile collapsed nav */
 @media (max-width: 991px) {
-  .kk-navbar .navbar-nav {
-    margin-left: 0;
+  .kk-navbar .navbar-collapse {
+    background: #141414;
+    padding: 0.4rem 0 0.75rem;
+    border-top: 1px solid #1e1e1e;
+    margin-top: 0.25rem;
   }
-  .kk-navbar .nav-item {
-    margin-left: 0;
+  .kk-navbar .navbar-nav { align-items: flex-start; }
+  .kk-navbar .nav-link   { padding: 0.5rem 0.5rem !important; }
+  /* Mobile help sub-links */
+  #helpMobile a.nav-link {
+    font-size: 0.9rem !important;
+    color: rgba(255,255,255,0.68) !important;
+    padding: 0.3rem 0.25rem !important;
   }
-  .kk-navbar .dropdown-menu {
-    background-color: #1c1c1c !important;
-    border: none;
-    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-  }
-  .kk-navbar .dropdown-item { padding: 10px 15px; }
+  #helpMobile a.nav-link:hover { color: #ffffff !important; }
 }
