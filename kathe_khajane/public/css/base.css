@@ -1,220 +1,153 @@
-/* ---------- FRAPPE BACKGROUND OVERRIDES ---------- */
+/* ============================================================
+   BASE.CSS
+   ============================================================ */
+
 html, body {
   background-color: #000000 !important;
   color: #ffffff !important;
-  min-height: 100vh;
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+  min-height: 100vh !important;
+  font-family: 'Arial', sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Kill Frappe grey backgrounds */
-.page-root,
-.page-content,
-.page-content-wrapper,
-.page-wrapper,
-.web-page-wrapper,
-#page-wrapper,
-#body,
-#body_div,
-.frappe-card {
+/* Kill every Frappe wrapper that adds bg or padding */
+.page-root, .page-content, .page-content-wrapper,
+.page-wrapper, .web-page-wrapper, #page-wrapper,
+#body, #body_div, .frappe-card, .page-container,
+.container-body, .website-list, .web-list-container {
   background-color: #000000 !important;
   background:       #000000 !important;
-  box-shadow:       none    !important;
-  padding-top:      0       !important;
-  margin-top:       0       !important;
+  box-shadow:       none !important;
+  padding-top:      0 !important;
+  margin-top:       0 !important;
+  border:           none !important;
 }
 
-/* Containers — transparent background */
-.container,
-.container-fluid,
-.container-lg,
-.container-md,
-.container-sm,
-.container-xl {
+/* Transparent containers */
+.container, .container-fluid, .container-lg,
+.container-md, .container-sm, .container-xl {
   background-color: transparent !important;
-  background:       transparent !important;
 }
 
-/* Hide Frappe footer */
-footer.web-footer,
-.web-footer,
-footer {
-  display: none !important;
-}
+footer.web-footer, .web-footer, footer, .web-footer-bottom { display: none !important; }
 
-/* ---------- KK-APP WRAPPER ---------- */
+/* ---- KK-APP ---- */
 .kk-app {
-  font-family: 'Arial', sans-serif;
-  background-color: #121212;
-  color: #ffffff;
-  line-height: 1.6;
+  background-color: #121212 !important;
+  color: #ffffff !important;
   min-height: 100vh;
-  padding: 20px 0;
 }
-
-/* kk-help overrides kk-app background to full black */
 .kk-app.kk-help {
-  background-color: #000000;
-  padding: 0;
+  background-color: #000000 !important;
+  padding: 0 !important;
 }
 
-/* Language specific font support */
-.kk-rtl, [lang="ur"] {
-  font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
+/* Language fonts */
+.kk-rtl { direction: rtl !important; text-align: right !important; }
+.kk-rtl .story-thumbnail { margin-right: 0 !important; margin-left: 14px !important; }
 
-[lang="kn"] {
-  font-family: 'Kedage', 'Mallige', 'Noto Sans Kannada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-[lang="mr"] {
-  font-family: 'Nirmala UI', 'Mangal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Headings inside kk-app */
-.kk-app h1,
-.kk-app h2,
-.kk-app h3,
-.kk-app h4 {
-  color: #ffffff;
+/* Headings */
+.kk-app h1, .kk-app h2, .kk-app h3, .kk-app h4 {
+  color: #ffffff !important;
   font-weight: 700;
 }
 
-/* Links inside kk-app */
-.kk-app a       { color: #ffffff; text-decoration: none; }
-.kk-app a:hover { color: #0d6efd; }
+/* Links */
+.kk-app a:not(.btn)         { color: #ffffff !important; text-decoration: none; }
+.kk-app a:not(.btn):hover   { color: #4d94ff !important; }
 
-/* Buttons inside kk-app */
-.kk-app .btn-primary       { background-color: #2274f0; border: none; color: #ffffff; }
-.kk-app .btn-primary:hover { background-color: #0f5ed6; }
-.kk-app .btn-success       { background-color: #10b981; border: none; color: #ffffff; }
-.kk-app .btn-success:hover { background-color: #059669; }
-.kk-app .btn-dark          { background-color: #1a1a1a; border: 1px solid #333; color: #ffffff; }
-.kk-app .btn-dark:hover    { background-color: #2a2a2a; }
+/* Buttons — use !important to beat Bootstrap + Frappe */
+.kk-app .btn-primary   { background-color: #2274f0 !important; border-color: #2274f0 !important; color: #fff !important; }
+.kk-app .btn-primary:hover { background-color: #0f5ed6 !important; }
+.kk-app .btn-success   { background-color: #10b981 !important; border-color: #10b981 !important; color: #fff !important; }
+.kk-app .btn-success:hover { background-color: #059669 !important; }
+.kk-app .btn-dark      { background-color: #1e1e1e !important; border-color: #444 !important; color: #fff !important; }
+.kk-app .btn-secondary { background-color: #333 !important; border-color: #555 !important; color: #fff !important; }
 
-/* ---------- RTL — Urdu ---------- */
-.kk-rtl                  { direction: rtl; text-align: right; }
-.kk-rtl .story-thumbnail { margin-right: 0; margin-left: 15px; }
-.kk-rtl .ms-3            { margin-right: 1rem !important; margin-left: 0 !important; }
+/* Forms */
+.form-control, .form-select {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #ffffff !important;
+}
+.form-control:focus, .form-select:focus {
+  background-color: #333 !important;
+  border-color: #2274f0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 0.2rem rgba(34,116,240,0.3) !important;
+}
 
-/* ---------- HOME PAGE ---------- */
+/* Modal */
+.modal-content {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
+  border-radius: 12px !important;
+}
+.modal-header { border-bottom-color: #2a2a2a !important; }
+.modal-footer { border-top-color:    #2a2a2a !important; }
+
+/* Close button — white X without filter:invert hack */
+.btn-close {
+  filter: none !important;
+  opacity: 1 !important;
+  background-color: rgba(255,255,255,0.12) !important;
+  border-radius: 50% !important;
+  width:  1.75rem !important;
+  height: 1.75rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293A1 1 0 01.293 13.707L6.586 8 .293 1.707a1 1 0 010-1.414z' fill='%23ffffff'/%3E%3C/svg%3E") !important;
+  background-size: 0.6em !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+.btn-close:hover { background-color: rgba(255,255,255,0.22) !important; }
+
+/* HOME PAGE */
 .kk-home {
-  background-color: #000000;
-  font-family: 'Arial', sans-serif;
+  background-color: #000000 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
-  color: #ffffff;
-}
-.kk-home .lang-container {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 2rem;
 }
 .lang-grid {
   display: grid;
   grid-template-columns: repeat(2, 160px);
   gap: 15px;
-  justify-content: center;
 }
 .lang-card {
-  aspect-ratio: 1/1;
-  background-color: #0d6efd;
-  color: #ffffff;
+  aspect-ratio: 1;
+  background: #2274f0;
+  color: #ffffff !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
+  font-weight: 700;
+  text-decoration: none !important;
   transition: transform 0.2s;
-  cursor: pointer;
 }
-.lang-card:hover      { transform: scale(1.05); color: #ffffff; }
-.home-version         { margin-top: 20px; font-size: 0.9rem; color: #aaa; text-align: center; }
+.lang-card:hover { transform: scale(1.05); }
+.home-version { margin-top: 20px; font-size: 0.85rem; color: #555; }
 
 @media (max-width: 480px) {
   .lang-grid { grid-template-columns: repeat(2, 130px); }
   .lang-card { font-size: 1rem; }
 }
 
-/* ---------- MODAL DARK THEME ---------- */
-.modal-content { background-color: #1a1a1a; color: #ffffff; }
-.modal-header  { border-bottom: 1px solid #333; }
-.modal-footer  { border-top:    1px solid #333; }
-.btn-close     { filter: invert(1); }
-
-.form-control,
-.form-select {
-  background-color: #333;
-  border: 1px solid #444;
-  color: #ffffff;
-}
-.form-control:focus,
-.form-select:focus {
-  background-color: #444;
-  color: #ffffff;
-  border-color: #6a0dad;
-  box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.25);
-}
-
-/* Story description inside modals */
-.story-description p  { margin-bottom: 1rem; line-height: 1.6; color: #ffffff; }
-.story-description ul { padding-left: 1.5rem; margin-bottom: 1rem; }
-.story-description li { margin-bottom: 0.5rem; color: #ffffff; }
-
-/* ---------- FILTER BADGES ---------- */
-.filter-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-.filter-badges .badge {
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 50px;
-  padding: 0.4rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-/* ---------- BOTTOM BUTTONS ---------- */
-.bottom-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-.bottom-buttons .btn   { 
-  padding: 0.5rem 1rem; 
-  font-size: 0.9rem; 
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.bottom-buttons .btn i { font-size: 0.9em; }
-
-@media (max-width: 576px) {
-  .bottom-buttons         { flex-direction: column; align-items: center; gap: 0.75rem; }
-  .bottom-buttons .btn    { width: 100%; max-width: 280px; padding: 0.5rem 0.75rem; justify-content: center; }
-}
-
-/* ---------- ABOUT PAGE ---------- */
+/* ABOUT PAGE */
 .about-body p {
-  color: #e0e0e0;
-  font-size: 1.05rem;
+  color: #d8d8d8;
+  font-size: 1.02rem;
   line-height: 1.8;
   margin-bottom: 1rem;
 }
+
+/* STORY DESCRIPTION */
+.story-description p { color: #d8d8d8; line-height: 1.7; margin-bottom: 1rem; }
+.story-description ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+.story-description li { color: #d8d8d8; margin-bottom: 0.4rem; }

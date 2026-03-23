@@ -1,71 +1,66 @@
 /* ============================================================
    STORY_VIEWER.CSS
-   Individual story detail page — scoped under .kk-app
    ============================================================ */
-
-.kk-app .story-title-main {
-  font-size: 2.2rem;
-  margin-bottom: 15px;
+.story-title-main {
+  font-size: 1.9rem;
+  margin-bottom: 12px;
   color: #ffffff;
+  font-weight: 700;
 }
-
-.kk-app .story-image-wrapper img {
+.story-image-wrapper img {
   width: 100%;
-  max-height: 300px;
+  max-height: 320px;
   object-fit: cover;
   border-radius: 10px;
 }
 
-.kk-app .story-themes {
-  margin: 8px 0 14px;
+/* FIX 3: small blue badges with soft corners, wrap cleanly */
+.story-themes {
+  margin: 10px 0 12px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 6px;
+  align-items: center;
 }
-
-.kk-app .theme-badge {
+.theme-badge {
   background: #2274f0;
-  color: #ffffff !important;
   padding: 3px 10px;
-  border-radius: 6px;        /* soft rounded corners like screenshot */
-  font-size: 0.78rem;        /* small, compact */
-  font-weight: 500;
+  border-radius: 6px;
+  font-size: 0.78rem;
   display: inline-block;
-  text-decoration: none !important;
+  color: #ffffff;
+  text-decoration: none;
   transition: background 0.2s;
+  font-weight: 500;
   line-height: 1.6;
   white-space: nowrap;
 }
-.kk-app .theme-badge:hover { background: #0f5ed6; color: #ffffff !important; }
+.theme-badge:hover { background: #0f5ed6; color: #ffffff; }
 
-.kk-app .back-link       { color: #aaa; }
-.kk-app .back-link:hover { color: #ffffff; }
-
-.kk-app .story-description p  { margin-bottom: 1rem; line-height: 1.6; color: #ffffff; }
-.kk-app .story-description ul { padding-left: 1.5rem; margin-bottom: 1rem; }
-.kk-app .story-description li { margin-bottom: 0.5rem; color: #ffffff; }
-
-.kk-app .story-resources a {
-  color: #0d6efd;
+.back-link       { color: #888; font-size: 0.95rem; text-decoration: none; }
+.back-link:hover { color: #ffffff; }
+.story-description p  { margin-bottom: 1rem; line-height: 1.7; color: #e0e0e0; }
+.story-description ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+.story-description li { margin-bottom: 0.5rem; color: #e0e0e0; }
+.story-resources a {
+  color: #2274f0;
   display: block;
   margin-top: 4px;
   word-break: break-all;
   text-decoration: none;
 }
-.kk-app .story-resources a:hover { text-decoration: underline; }
-
-.kk-app .story-buttons {
+.story-resources a:hover { text-decoration: underline; }
+.story-buttons {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
   padding-top: 1rem;
-  border-top: 1px solid #333;
-  margin-top: 1rem;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 0.5rem;
 }
-
 @media (max-width: 576px) {
-  .kk-app .story-title-main   { font-size: 1.6rem; }
-  .kk-app .story-buttons      { flex-direction: column; }
-  .kk-app .story-buttons .btn { width: 100%; }
+  .story-title-main       { font-size: 1.4rem; }
+  .story-buttons          { flex-direction: column; }
+  .story-buttons .btn     { width: 100%; }
+  .story-image-wrapper img { max-height: 220px; }
 }

@@ -48,6 +48,14 @@ def build_dataset(language):
         linked      = story_theme_map.get(s.name, [])
         s["themes"] = [theme_lookup[t] for t in linked if theme_lookup.get(t)]
         all_themes.update(s["themes"])
+        # Convert seconds to min:sec for display
+        try:
+            total_sec = int(float(s.get("duration") or 0))
+            mins = total_sec // 60
+            secs = total_sec % 60
+            s["duration_min"] = f"{mins}:{secs:02d}"
+        except Exception:
+            s["duration_min"] = ""
         if s.get("popular_story"):
             top_stories.append(s)
 
@@ -72,7 +80,6 @@ def get_context(context):
     language = LANG_MAP.get(lang, "English")
     frappe.local.lang = lang
 
-    # Use werkzeug MultiDict to get all selected theme values
     try:
         selected_themes = list(frappe.request.args.getlist("theme"))
     except Exception:
@@ -94,7 +101,6 @@ def get_context(context):
         themes = s.get("themes", [])
         if selected_themes and not all(t in themes for t in selected_themes):
             continue
-        # duration is stored as raw minutes (e.g. 5.13) — use as-is for filtering
         d = float(s.duration or 0)
         if selected_duration == "short"  and d >= 3:            continue
         if selected_duration == "medium" and not (3 <= d <= 5): continue
@@ -107,12 +113,12 @@ def get_context(context):
         if combined_query else None
     )
 
-    context.lang               = lang
-    context.stories            = filtered
-    context.themes             = data["themes"]
-    context.top_stories        = [] if is_filtered else data["top_stories"]
-    context.selected_themes    = selected_themes
-    context.selected_duration  = selected_duration
+    context.lang              = lang
+    context.stories           = filtered
+    context.themes            = data["themes"]
+    context.top_stories       = [] if is_filtered else data["top_stories"]
+    context.selected_themes   = selected_themes
+    context.selected_duration = selected_duration
     context.combined_deep_link = combined_deep_link
-    context.is_filtered        = is_filtered
-    context.no_cache           = 1
+    context.is_filtered       = is_filtered
+    context.no_cache = 1
