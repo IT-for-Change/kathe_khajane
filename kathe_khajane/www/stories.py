@@ -48,11 +48,6 @@ def build_dataset(language):
         linked      = story_theme_map.get(s.name, [])
         s["themes"] = [theme_lookup[t] for t in linked if theme_lookup.get(t)]
         all_themes.update(s["themes"])
-        # Convert duration from seconds to minutes for display
-        if s.get("duration"):
-            s["duration_min"] = round(float(s["duration"]) / 60)
-        else:
-            s["duration_min"] = 0
         if s.get("popular_story"):
             top_stories.append(s)
 
@@ -77,7 +72,7 @@ def get_context(context):
     language = LANG_MAP.get(lang, "English")
     frappe.local.lang = lang
 
-    # frappe.form_dict flattens multi-value params; use werkzeug MultiDict directly
+    # Use werkzeug MultiDict to get all selected theme values
     try:
         selected_themes = list(frappe.request.args.getlist("theme"))
     except Exception:
@@ -99,10 +94,11 @@ def get_context(context):
         themes = s.get("themes", [])
         if selected_themes and not all(t in themes for t in selected_themes):
             continue
+        # duration is stored as raw minutes (e.g. 5.13) — use as-is for filtering
         d = float(s.duration or 0)
-        if selected_duration == "short"  and d >= 180:             continue
-        if selected_duration == "medium" and not (180 <= d <= 300): continue
-        if selected_duration == "long"   and d <= 300:             continue
+        if selected_duration == "short"  and d >= 3:            continue
+        if selected_duration == "medium" and not (3 <= d <= 5): continue
+        if selected_duration == "long"   and d <= 5:            continue
         filtered.append(s)
 
     combined_query     = "+".join(quote(t) for t in selected_themes) if selected_themes else None
@@ -111,12 +107,12 @@ def get_context(context):
         if combined_query else None
     )
 
-    context.lang              = lang
-    context.stories           = filtered
-    context.themes            = data["themes"]
-    context.top_stories       = [] if is_filtered else data["top_stories"]
-    context.selected_themes   = selected_themes
-    context.selected_duration = selected_duration
+    context.lang               = lang
+    context.stories            = filtered
+    context.themes             = data["themes"]
+    context.top_stories        = [] if is_filtered else data["top_stories"]
+    context.selected_themes    = selected_themes
+    context.selected_duration  = selected_duration
     context.combined_deep_link = combined_deep_link
-    context.is_filtered       = is_filtered
-    context.no_cache = 1
+    context.is_filtered        = is_filtered
+    context.no_cache           = 1

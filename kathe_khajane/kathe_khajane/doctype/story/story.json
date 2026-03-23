@@ -106,7 +106,8 @@
    "description": "Thumbnail image that appears against the episode in AntennaPod.\nOne file only.",
    "fieldname": "thumbnail_image",
    "fieldtype": "Attach Image",
-   "label": "Thumbnail image"
+   "label": "Thumbnail image",
+   "make_attachment_public": 1
   },
   {
    "description": "The date you want to display for the episode in AntennaPod",
@@ -286,7 +287,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2026-03-05 16:52:43.090259",
+ "modified": "2026-03-23 12:04:59.442545",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Story",

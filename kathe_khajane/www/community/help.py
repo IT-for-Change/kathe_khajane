@@ -13,20 +13,19 @@ def get_context(context):
     doc.subtitle = "Follow these simple steps to access and subscribe to the Kathe Khajane community stories podcasts on your device"
 
     # ---------- ANDROID ----------
-    android_app  = build_app_html("/assets/kathe_khajane/images/antennapod-icon.png", "AntennaPod")
+    android_app  = build_app_html("/files/antennapod-icon.png", "AntennaPod")
     android_link = build_link_html(doc.android_install_link, doc.android_step1_link_text or "Download")
     doc.android_step1_rendered = render_step1(doc.android_step1_text, android_app, android_link)
 
     # ---------- IPHONE ----------
-    iphone_app  = build_app_html("/assets/kathe_khajane/images/podcasts-icon.png", "Podcasts")
+    iphone_app  = build_app_html("/files/podcasts-icon.png", "Podcasts")
     iphone_link = build_link_html(doc.iphone_install_link, doc.iphone_step1_link_text or "Download")
     doc.iphone_step1_rendered = render_step1(doc.iphone_step1_text, iphone_app, iphone_link)
 
     # ---------- DESKTOP ----------
-    gpodder_app = build_app_html("/assets/kathe_khajane/images/gpodder-icon.png", "gPodder")
+    gpodder_app = build_app_html("/files/gpodder-icon.png", "gPodder")
     doc.desktop_step1_rendered = render_step1(doc.desktop_step1_text, gpodder_app, "")
 
-    doc.community_feeds_text = doc.community_feeds_text or ""
 
     # Community links only
     links = frappe.get_all(
