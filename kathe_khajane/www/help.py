@@ -29,7 +29,7 @@ def get_context(context):
 
     # ---------- ANDROID ----------
     android_app = build_app_html(
-        "/assets/kathe_khajane/images/antennapod-icon.png",
+        "/files/antennapod-icon.png",
         "AntennaPod"
     )
 
@@ -46,7 +46,7 @@ def get_context(context):
 
     # ---------- IPHONE ----------
     iphone_app = build_app_html(
-        "/assets/kathe_khajane/images/podcasts-icon.png",
+        "/files/podcasts-icon.png",
         "Podcasts"
     )
 
