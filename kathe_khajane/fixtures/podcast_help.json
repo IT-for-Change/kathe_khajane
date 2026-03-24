@@ -91,16 +91,29 @@
   "sort_order": "6"
  },
  {
-  "android_url": "https://antennapod.org/deeplink/subscribe?url=https://kathe-khajane.teacher-network.in/kathe/ta/ta-kathe-khajane-community.xml",
-  "desktop_url": "https://kathe-khajane.teacher-network.in/kathe/ta/ta-kathe-khajane-community.xml",
+  "android_url": "https://antennapod.org/deeplink/subscribe?url=https://kathe-khajane.teacher-network.in/kathe/ka/ka-kathe-khajane-community.xml",
+  "desktop_url": "https://kathe-khajane.teacher-network.in/kathe/ka/ka-kathe-khajane-community.xml",
   "docstatus": 0,
   "doctype": "Podcast help",
-  "iphone_url": "podcast://kathe-khajane.teacher-network.in/kathe/ta/ta-kathe-khajane-community.xml",
+  "iphone_url": "podcast://kathe-khajane.teacher-network.in/kathe/ka/ka-kathe-khajane-community.xml",
   "is_community": 1,
-  "language_code": "ta",
-  "language_name": "Tamil ",
-  "modified": "2026-02-23 15:49:04.584874",
-  "name": "Tamil Community",
+  "language_code": "kn",
+  "language_name": "Kannada",
+  "modified": "2026-03-24 12:27:30.240776",
+  "name": "Kannada Community",
   "sort_order": "2"
+ },
+ {
+  "android_url": "https://antennapod.org/deeplink/subscribe?url=https://kathe-khajane.teacher-network.in/kathe/hi/hi-kathe-khajane-community.xml",
+  "desktop_url": "https://kathe-khajane.teacher-network.in/kathe/hi/hi-kathe-khajane-community.xml",
+  "docstatus": 0,
+  "doctype": "Podcast help",
+  "iphone_url": "podcast://kathe-khajane.teacher-network.in/kathe/hi/hi-kathe-khajane-community.xml",
+  "is_community": 1,
+  "language_code": "hi",
+  "language_name": "Hindi",
+  "modified": "2026-03-24 12:28:52.219433",
+  "name": "Hindi Community",
+  "sort_order": "3"
  }
 ]
