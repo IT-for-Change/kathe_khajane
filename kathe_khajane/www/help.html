@@ -90,13 +90,13 @@
 
         <!-- Tutorials -->
         <div class="tutorial-container">
-          {% if doc.android_install_url %}
+          {% if doc.android_install_tutorial_url %}
           <a href="{{ doc.android_install_tutorial_url }}" class="tutorial-link">
             <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
           </a>
           {% endif %}
-          {% if doc.android_tutorial_url %}
-          <a href="{{ doc.android_tutorial_url }}" class="tutorial-link">
+          {% if doc.android_access_tutorial_url %}
+          <a href="{{ doc.android_access_tutorial_url }}" class="tutorial-link">
             <i class="fas fa-video me-2"></i>{{ doc.access_tutorial_text }}
           </a>
           {% endif %}
@@ -167,7 +167,7 @@
         <!-- Tutorials -->
         <div class="tutorial-container">
           {% if doc.iphone_install_url %}
-          <a href="{{ doc.iphone_install_tutorial_url }}" class="tutorial-link me-3">
+          <a href="{{ doc.iphone_install_url }}" class="tutorial-link me-3">
             <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
           </a>
           {% endif %}
@@ -282,7 +282,7 @@
       <!-- Tutorials -->
       <div class="tutorial-container">
         {% if doc.desktop_install_url %}
-        <a href="{{ doc.desktop_install_tutorial_url }}" class="tutorial-link me-3">
+        <a href="{{ doc.desktop_install_url }}" class="tutorial-link me-3">
           <i class="fas fa-video me-2"></i>{{ doc.install_tutorial_text }}
         </a>
         {% endif %}
