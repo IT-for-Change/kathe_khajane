@@ -12,11 +12,12 @@ Filter Stories,कथा फिल्टर करा
 Themes,विषय
 Duration,कालावधी
 All,सर्व
-"Short (< 3 min)","छोटी (< 3 मिनिट)"
-"Medium (3–5 min)","मध्यम (3–5 मिनिट)"
-"Long (> 5 min)","लांब (> 5 मिनिट)"
+Short,छोटी (< 3 मिनिट)
+Medium,मध्यम (3–5 मिनिट)
+Long,लांब (> 5 मिनिट)
 Apply Filters,फिल्टर लागू करा
 Home,मुख्यपृष्ठ
 About,आमच्याबद्दल
 Filtered Stories,फिल्टर केलेल्या कथा
 Open All in AntennaPod,अँटेनापॉडमधील सर्व उघडा
+No stories found for the selected filters,निवडलेल्या फिल्टरनुसार कोणतीही कथा आढळली नाही

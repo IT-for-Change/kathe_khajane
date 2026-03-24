@@ -13,7 +13,7 @@
       <span class="badge rounded-pill" style="background:#2274f0;color:#fff;padding:0.35rem 1rem;">{{ t }}</span>
       {% endfor %}
       {% if selected_duration %}
-      <span class="badge rounded-pill" style="background:#2274f0;color:#fff;padding:0.35rem 1rem;">{{ selected_duration }}</span>
+      <span class="badge rounded-pill" style="background:#2274f0;color:#fff;padding:0.35rem 1rem;">{{ _(selected_duration_label) }}</span>
       {% endif %}
     </div>
 
@@ -74,7 +74,7 @@
       {% endfor %}
 
       {% if not stories %}
-      <p class="text-center mt-5" style="color:#666;">{{ _("No stories found for the selected filters.") }}</p>
+      <p class="text-center mt-5" style="color:#666;">{{ _("No stories found for the selected filters") }}</p>
       {% endif %}
     </div>
 

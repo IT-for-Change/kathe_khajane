@@ -24,6 +24,15 @@
   text-align: center;
   line-height: 1.6;
 }
+.kk-help .tutorial-link,
+.kk-help .tutorial-link:link,
+.kk-help .tutorial-link:visited,
+.kk-help .tutorial-link:hover,
+.kk-help .tutorial-link:active,
+.kk-help .tutorial-link:focus {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
 
 /* ── NAV PILLS ────────────────────────────────────────────── */
 .kk-help .nav-pills { gap: 0.5rem; justify-content: center; }

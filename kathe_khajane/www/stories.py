@@ -22,6 +22,12 @@ THEME_DOCTYPE = {
     "Urdu":    "Urdu themes",
 }
 
+DURATION_LABELS = {
+    "short":  "Short",
+    "medium": "Medium",
+    "long":   "Long",
+}
+
 def build_dataset(language):
     child_table   = THEME_CHILD[language]
     theme_doctype = THEME_DOCTYPE[language]
@@ -118,6 +124,10 @@ def get_context(context):
     context.themes            = data["themes"]
     context.top_stories       = [] if is_filtered else data["top_stories"]
     context.selected_themes   = selected_themes
+    context.selected_duration_label = (
+    DURATION_LABELS.get(selected_duration)
+    if selected_duration else None
+    )
     context.selected_duration = selected_duration
     context.combined_deep_link = combined_deep_link
     context.is_filtered       = is_filtered

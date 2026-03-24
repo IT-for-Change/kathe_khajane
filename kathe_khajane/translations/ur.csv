@@ -12,11 +12,12 @@ Filter Stories,کہانیاں فلٹر کریں
 Themes,موضوعات
 Duration,مدت
 All,سب
-"Short (< 3 min)","مختصر (< 3 منٹ)"
-"Medium (3–5 min)","درمیانی (3–5 منٹ)"
-"Long (> 5 min)","طویل (> 5 منٹ)"
+Short,مختصر (< 3 منٹ)
+Medium,درمیانی (3–5 منٹ)
+Long,طویل (> 5 منٹ)
 About,ہمارے بارے میں
 Home,ہوم
 Apply Filters,فلٹر لگائیں
 Filtered Stories,فلٹر شدہ کہانیاں
 Open All in AntennaPod,تمام اینٹینا پوڈ میں کھولیں۔
+No stories found for the selected filters,منتخب فلٹرز کے لیے کوئی کہانی نہیں ملی
