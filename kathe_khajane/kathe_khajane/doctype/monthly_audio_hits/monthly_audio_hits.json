@@ -30,7 +30,7 @@
   },
   {
    "fieldname": "language",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Language",
    "options": "Story"
   },
@@ -43,7 +43,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-31 11:38:47.655250",
+ "modified": "2026-03-31 16:48:02.056946",
  "modified_by": "Administrator",
  "module": "Kathe Khajane",
  "name": "Monthly Audio Hits",
