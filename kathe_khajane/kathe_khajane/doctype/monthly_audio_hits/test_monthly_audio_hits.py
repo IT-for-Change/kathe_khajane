@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestMonthlyAudioHIts(FrappeTestCase):
+class TestMonthlyAudioHits(FrappeTestCase):
 	pass

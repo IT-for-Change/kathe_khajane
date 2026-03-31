@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class MonthlyAudioHIts(Document):
+class MonthlyAudioHits(Document):
 	pass
