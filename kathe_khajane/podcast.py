@@ -196,7 +196,7 @@ def get_story_tags(story_name, language):
 
 # ---------------- RSS FEED GENERATOR ---------------- #
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def generate(docname):
 
     storycast = frappe.get_doc("Storycast", docname)

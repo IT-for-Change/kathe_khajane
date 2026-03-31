@@ -12,6 +12,6 @@ def update_story_media(story_name, audio=None, thumbnail=None):
     if thumbnail and not story.thumbnail_image:
         story.thumbnail_image = thumbnail
 
-    story.save(ignore_permissions=True)
+    story.save()
 
     return {"status": "ok", "story": story.name}

@@ -183,7 +183,7 @@ def create_story(row):
         title="STORY BEFORE INSERT"
     )
 
-    story.insert(ignore_permissions=True)
+    story.insert()
 
     frappe.db.commit()
 
