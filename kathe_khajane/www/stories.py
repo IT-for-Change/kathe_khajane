@@ -107,10 +107,11 @@ def get_context(context):
         themes = s.get("themes", [])
         if selected_themes and not all(t in themes for t in selected_themes):
             continue
-        d = float(s.duration or 0)
-        if selected_duration == "short"  and d >= 3:            continue
-        if selected_duration == "medium" and not (3 <= d <= 5): continue
-        if selected_duration == "long"   and d <= 5:            continue
+        d = float(s.duration or 0)  # duration is in seconds
+
+        if selected_duration == "short"  and d >= 3 * 60:             continue 
+        if selected_duration == "medium" and not (3 * 60 <= d <= 5 * 60): continue  
+        if selected_duration == "long"   and d <= 5 * 60:             continue  
         filtered.append(s)
 
     combined_query     = "+".join(quote(t) for t in selected_themes) if selected_themes else None
